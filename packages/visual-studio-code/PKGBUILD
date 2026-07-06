@@ -69,7 +69,7 @@ package() {
     install -m644 "${srcdir}/code.desktop" "${pkgdir}/usr/share/applications/code.desktop"
     install -m644 "${srcdir}/${_vscode_dir}/resources/app/resources/linux/code.png" "${pkgdir}/usr/share/pixmaps/vscode.png"
 
-    # setuid on chrome-sandbox
+    # Remove setuid on chrome-sandbox
     # Comment out if using a kernel without user namespaces, like linux-hardened
     chmod u-s "${pkgdir}/usr/share/code/chrome-sandbox"
 }
