@@ -1,0 +1,75 @@
+# Maintainer: Electronic-Mango
+
+pkgname=visual-studio-code
+pkgver=1.127.0
+pkgrel=1
+pkgdesc='Visual Studio Code (vscode): Editor for building and debugging modern web and cloud applications (official tarball version)'
+arch=('x86_64')
+url='https://code.visualstudio.com/'
+license=('custom: commercial')
+provides=('code' 'vscode')
+conflicts=('code' 'visual-studio-code-bin')
+# Upstream has signature verification for extensions and stripping breaks it
+# See https://github.com/microsoft/vscode/issues/223455#issuecomment-2610001754
+options=(!strip)
+
+# lsof: needed for terminal splitting, see https://github.com/Microsoft/vscode/issues/62991
+# xdg-utils: needed for opening web links with xdg-open
+depends=(
+    libxkbfile
+    gnupg
+    gtk3
+    libsecret
+    nss
+    gcc-libs
+    libnotify
+    libxss
+    glibc
+    lsof
+    shared-mime-info
+    xdg-utils
+    alsa-lib
+)
+optdepends=(
+    'glib2: Needed for move to trash functionality'
+    'libdbusmenu-glib: Needed for KDE global menu'
+    'org.freedesktop.secrets: Needed for settings sync'
+    # See https://github.com/MicrosoftDocs/live-share/issues/4650
+    'icu69: Needed for live share'
+)
+
+source=(
+    "code.desktop"
+    "${pkgname}-${pkgver}.tar.gz::https://update.code.visualstudio.com/${pkgver}/linux-x64/stable"
+)
+sha256sums=(
+    '8ff7386e99e55dcaff69c93baa655d9d75d54a68d116aece3b0d6b22457233e5'
+    'e06fb36791c9baf7495d4b7dc0f5aaa8254e7d1a60a5ee43e6c7debc05c962b5'
+)
+_vscode_dir="VSCode-linux-x64"
+
+package() {
+    # Set up directory structure
+    install -d "${pkgdir}/usr/bin"
+    install -d "${pkgdir}/usr/share/licenses/${pkgname}"
+    install -d "${pkgdir}/usr/share/code"
+    install -d "${pkgdir}/usr/share/applications"
+    install -d "${pkgdir}/usr/share/pixmaps"
+
+    # Install the application
+    cp -a "${srcdir}/${_vscode_dir}/." "${pkgdir}/usr/share/code/"
+
+    # Link license
+    ln -s "../../code/resources/app/LICENSE.rtf" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.rtf"
+
+    # Link executable
+    ln -s "../share/code/bin/code" "${pkgdir}/usr/bin/code"
+
+    # Install desktop entry and icon
+    install -m644 "${srcdir}/code.desktop" "${pkgdir}/usr/share/applications/code.desktop"
+    install -m644 "${srcdir}/${_vscode_dir}/resources/app/resources/linux/code.png" "${pkgdir}/usr/share/pixmaps/vscode.png"
+
+    # setuid on chrome-sandbox
+    # Comment out if using a kernel without user namespaces, like linux-hardened
+    chmod u-s "${pkgdir}/usr/share/code/chrome-sandbox"
+}
