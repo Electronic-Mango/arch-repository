@@ -38,14 +38,10 @@ optdepends=(
     'icu69: Needed for live share'
 )
 
-source=(
-    "code.desktop"
-    "${pkgname}-${pkgver}.tar.gz::https://update.code.visualstudio.com/${pkgver}/linux-x64/stable"
-)
-sha256sums=(
-    '8ff7386e99e55dcaff69c93baa655d9d75d54a68d116aece3b0d6b22457233e5'
-    'e06fb36791c9baf7495d4b7dc0f5aaa8254e7d1a60a5ee43e6c7debc05c962b5'
-)
+source=("code.desktop")
+source_x86_64=("${pkgname}-${pkgver}.tar.gz::https://update.code.visualstudio.com/${pkgver}/linux-x64/stable")
+sha256sums=('8ff7386e99e55dcaff69c93baa655d9d75d54a68d116aece3b0d6b22457233e5')
+sha256sums_x86_64=('e06fb36791c9baf7495d4b7dc0f5aaa8254e7d1a60a5ee43e6c7debc05c962b5')
 _vscode_dir="VSCode-linux-x64"
 
 package() {
