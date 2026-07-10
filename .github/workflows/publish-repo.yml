@@ -57,6 +57,8 @@ jobs:
       - name: Create unprivileged builder user
         run: |
           useradd -m -s /bin/bash builder
+          echo 'builder ALL=(root) NOPASSWD: /usr/bin/pacman' > /etc/sudoers.d/builder-pacman
+          chmod 0440 /etc/sudoers.d/builder-pacman
           chown -R builder:builder "${GITHUB_WORKSPACE}"
 
       - name: Import signing key for builder
