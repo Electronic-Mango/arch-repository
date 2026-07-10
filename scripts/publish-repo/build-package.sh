@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+package_dir="${1:-}"
+output_dir="${2:-}"
+
+if [[ -z "${package_dir}" || -z "${output_dir}" ]]; then
+  echo "Usage: scripts/publish-repo/build-package.sh <package_dir> <output_dir>" >&2
+  exit 1
+fi
+
+if [[ ! -f "${package_dir}/PKGBUILD" ]]; then
+  echo "PKGBUILD not found in: ${package_dir}" >&2
+  exit 1
+fi
+
+mkdir -p "${output_dir}"
+
+pushd "${package_dir}" >/dev/null
+makepkg -sf --noconfirm --needed
+namcap PKGBUILD || true
+namcap ./*.pkg.tar.* || true
+find . -maxdepth 1 -type f -name '*.pkg.tar.*' -exec cp -v {} "${output_dir}/" \;
+popd >/dev/null
