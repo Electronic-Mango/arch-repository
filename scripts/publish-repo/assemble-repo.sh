@@ -28,6 +28,7 @@ if [[ ${#package_files[@]} -eq 0 ]]; then
 fi
 
 repo-add --sign --key "${gpg_key_id}" custom.db.tar.gz "${package_files[@]}"
+rm -f custom.db custom.files custom.db.sig custom.files.sig
 cp -f custom.db.tar.gz custom.db
 cp -f custom.files.tar.gz custom.files
 cp -f custom.db.tar.gz.sig custom.db.sig
