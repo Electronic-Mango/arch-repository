@@ -62,18 +62,18 @@ jobs:
 
       - name: Build package and run validation
         run: |
-          mkdir -p "${RUNNER_TEMP}/pkgs"
+          mkdir -p "${GITHUB_WORKSPACE}/build-artifacts"
           sudo -u builder -- bash \
             "${GITHUB_WORKSPACE}/scripts/publish-repo/build-package.sh" \
             "${GITHUB_WORKSPACE}/${{ matrix.package_dir }}" \
-            "${RUNNER_TEMP}/pkgs" \
+            "${GITHUB_WORKSPACE}/build-artifacts" \
             "${REPO_GPG_KEY_ID}"
 
       - name: Upload package artifacts
         uses: actions/upload-artifact@v4
         with:
           name: pkgs-${{ matrix.artifact_suffix }}
-          path: ${{ runner.temp }}/pkgs/*
+          path: build-artifacts/*
           retention-days: 1
           if-no-files-found: error
 
