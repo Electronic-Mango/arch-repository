@@ -17,5 +17,5 @@ if [[ ${#pkg_dirs[@]} -eq 0 ]]; then
 fi
 
 printf '%s\n' "${pkg_dirs[@]}" |
-  jq -R '{package_dir: ., artifact_suffix: (. | gsub("/"; "-"))}' |
+  jq -R '{package_dir: ., artifact_suffix: (. | gsub("packages/"; ""))}' |
   jq -c -s .
