@@ -20,7 +20,14 @@ mkdir -p "${repo_dir}"
 find "${artifacts_dir}" -type f -name '*.pkg.tar.*' -exec cp -v {} "${repo_dir}/" \;
 
 pushd "${repo_dir}" >/dev/null
-repo-add --sign --key "${gpg_key_id}" custom.db.tar.gz ./*.pkg.tar.*
+mapfile -t package_files < <(find . -maxdepth 1 -type f -name '*.pkg.tar.*' -not -name '*.sig' | sort)
+
+if [[ ${#package_files[@]} -eq 0 ]]; then
+  echo "No package archives found in: ${repo_dir}" >&2
+  exit 1
+fi
+
+repo-add --sign --key "${gpg_key_id}" custom.db.tar.gz "${package_files[@]}"
 cp -f custom.db.tar.gz custom.db
 cp -f custom.files.tar.gz custom.files
 cp -f custom.db.tar.gz.sig custom.db.sig

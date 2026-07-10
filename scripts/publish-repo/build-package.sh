@@ -21,6 +21,6 @@ mkdir -p "${output_dir}"
 pushd "${package_dir}" >/dev/null
 makepkg -sf --sign --key "${gpg_key_id}" --noconfirm --needed
 namcap PKGBUILD || true
-namcap ./*.pkg.tar.* || true
+find . -maxdepth 1 -type f -name '*.pkg.tar.*' -not -name '*.sig' -exec namcap {} \; || true
 find . -maxdepth 1 -type f -name '*.pkg.tar.*' -exec cp -v {} "${output_dir}/" \;
 popd >/dev/null
