@@ -62,7 +62,6 @@ jobs:
 
       - name: Build package and run validation
         run: |
-          mkdir -p "${GITHUB_WORKSPACE}/build-artifacts"
           sudo -u builder -- bash \
             "${GITHUB_WORKSPACE}/scripts/publish-repo/build-package.sh" \
             "${GITHUB_WORKSPACE}/${{ matrix.package_dir }}" \
