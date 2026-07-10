@@ -97,7 +97,7 @@ jobs:
       - name: Download all package artifacts
         uses: actions/download-artifact@v4
         with:
-          path: build-packages
+          path: ${{ runner.temp }}/build-packages
 
       - name: Install publish tools
         run: |
@@ -114,7 +114,7 @@ jobs:
 
       - name: Assemble repository payload
         run: |
-          bash scripts/publish-repo/assemble-repo.sh build-packages repo "${REPO_GPG_KEY_ID}"
+          bash scripts/publish-repo/assemble-repo.sh "${RUNNER_TEMP}/build-packages" "${RUNNER_TEMP}/repo" "${REPO_GPG_KEY_ID}"
 
       - name: Publish or update release assets
         uses: ncipollo/release-action@v1
@@ -124,7 +124,7 @@ jobs:
           allowUpdates: true
           replacesArtifacts: true
           makeLatest: true
-          artifacts: "repo/*"
+          artifacts: "${{ runner.temp }}/repo/*"
           body: |
             Auto-published package repository payload.
 
