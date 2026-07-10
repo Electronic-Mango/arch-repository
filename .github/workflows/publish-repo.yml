@@ -47,7 +47,7 @@ jobs:
 
       - name: Install build tools
         run: |
-          pacman -Syu --noconfirm --needed git pacman-contrib namcap gnupg
+          pacman -Syu --noconfirm --needed git sudo pacman-contrib namcap gnupg
 
       - name: Validate signing secrets
         run: |
@@ -61,13 +61,14 @@ jobs:
 
       - name: Import signing key for builder
         run: |
-          printf '%s' "${REPO_GPG_PRIVATE_KEY_B64}" | base64 -d | \
-            su -s /bin/bash builder -c 'gpg --batch --import'
+          printf '%s' "${REPO_GPG_PRIVATE_KEY_B64}" | \
+            base64 -d | \
+            sudo -u builder -- gpg --batch --import
 
       - name: Build package and run validation
         run: |
           mkdir -p "${RUNNER_TEMP}/pkgs"
-          su -s /bin/bash builder -c 'bash "$1" "$2" "$3" "$4"' _ \
+          sudo -u builder -- bash \
             "${GITHUB_WORKSPACE}/scripts/publish-repo/build-package.sh" \
             "${GITHUB_WORKSPACE}/${{ matrix.package_dir }}" \
             "${RUNNER_TEMP}/pkgs" \
