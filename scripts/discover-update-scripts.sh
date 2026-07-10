@@ -9,8 +9,8 @@ if [[ ! -d "${scripts_dir}" ]]; then
     exit 1
 fi
 
-# sudo apt-get update
-# sudo apt-get install -y jq
+sudo apt-get update
+sudo apt-get install -y jq
 
 shopt -s nullglob
 matrix_entries=()
