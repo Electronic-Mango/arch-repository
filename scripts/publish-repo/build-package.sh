@@ -4,9 +4,10 @@ set -euo pipefail
 
 package_dir="${1:-}"
 output_dir="${2:-}"
+gpg_key_id="${3:-}"
 
-if [[ -z "${package_dir}" || -z "${output_dir}" ]]; then
-  echo "Usage: scripts/publish-repo/build-package.sh <package_dir> <output_dir>" >&2
+if [[ -z "${package_dir}" || -z "${output_dir}" || -z "${gpg_key_id}" ]]; then
+  echo "Usage: scripts/publish-repo/build-package.sh <package_dir> <output_dir> <gpg_key_id>" >&2
   exit 1
 fi
 
@@ -18,7 +19,7 @@ fi
 mkdir -p "${output_dir}"
 
 pushd "${package_dir}" >/dev/null
-makepkg -sf --noconfirm --needed
+makepkg -sf --sign --key "${gpg_key_id}" --noconfirm --needed
 namcap PKGBUILD || true
 namcap ./*.pkg.tar.* || true
 find . -maxdepth 1 -type f -name '*.pkg.tar.*' -exec cp -v {} "${output_dir}/" \;
