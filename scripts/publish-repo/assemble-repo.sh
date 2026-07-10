@@ -23,4 +23,6 @@ pushd "${repo_dir}" >/dev/null
 repo-add --sign --key "${gpg_key_id}" custom.db.tar.gz ./*.pkg.tar.*
 cp -f custom.db.tar.gz custom.db
 cp -f custom.files.tar.gz custom.files
+cp -f custom.db.tar.gz.sig custom.db.sig
+cp -f custom.files.tar.gz.sig custom.files.sig
 popd >/dev/null
