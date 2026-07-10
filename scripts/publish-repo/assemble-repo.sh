@@ -27,10 +27,10 @@ if [[ ${#package_files[@]} -eq 0 ]]; then
   exit 1
 fi
 
-repo-add --sign --key "${gpg_key_id}" custom.db.tar.gz "${package_files[@]}"
-rm -f custom.db custom.files custom.db.sig custom.files.sig
-cp -f custom.db.tar.gz custom.db
-cp -f custom.files.tar.gz custom.files
-cp -f custom.db.tar.gz.sig custom.db.sig
-cp -f custom.files.tar.gz.sig custom.files.sig
+repo-add --sign --key "${gpg_key_id}" electronic-mango.db.tar.gz "${package_files[@]}"
+rm -f electronic-mango.db electronic-mango.files electronic-mango.db.sig electronic-mango.files.sig
+cp -f electronic-mango.db.tar.gz electronic-mango.db
+cp -f electronic-mango.files.tar.gz electronic-mango.files
+cp -f electronic-mango.db.tar.gz.sig electronic-mango.db.sig
+cp -f electronic-mango.files.tar.gz.sig electronic-mango.files.sig
 popd >/dev/null
