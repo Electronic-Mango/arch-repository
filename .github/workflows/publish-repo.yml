@@ -79,7 +79,7 @@ jobs:
       - name: Upload package artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: pkgs-${{ replace(matrix.package_dir, '/', '-') }}
+          name: pkgs-${{ matrix.artifact_suffix }}
           path: ${{ runner.temp }}/pkgs/*
           retention-days: 1
           if-no-files-found: error
