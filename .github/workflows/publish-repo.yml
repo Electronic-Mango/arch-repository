@@ -1,4 +1,4 @@
-name: Build and Publish Arch Repo
+name: Build and Publish Arch Repository
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   discover:
-    name: Discover package directories
+    name: Discover packages
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.discover.outputs.matrix }}
@@ -23,13 +23,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Find package directories with PKGBUILD
+      - name: Find packages
         id: discover
-        shell: bash
         run: |
-          set -euo pipefail
-          matrix_json=$(bash scripts/publish-repo/discover-json.sh packages)
-          echo "matrix=${matrix_json}" >> "${GITHUB_OUTPUT}"
+          echo "matrix=$(bash scripts/publish-repo/discover-json.sh packages)" >> "${GITHUB_OUTPUT}"
 
   build:
     name: Build ${{ matrix.package_dir }}
@@ -45,23 +42,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install build tooling
-        shell: bash
+      - name: Install build tools
         run: |
-          set -euo pipefail
           pacman -Syu --noconfirm --needed git pacman-contrib namcap
 
       - name: Create unprivileged builder user
-        shell: bash
         run: |
-          set -euo pipefail
           useradd -m -s /bin/bash builder
           chown -R builder:builder "${GITHUB_WORKSPACE}"
 
       - name: Build package and run validation
-        shell: bash
         run: |
-          set -euo pipefail
           mkdir -p "${RUNNER_TEMP}/pkgs"
           su -s /bin/bash builder -c 'bash "$1" "$2" "$3"' _ \
             "${GITHUB_WORKSPACE}/scripts/publish-repo/build-package.sh" \
@@ -92,9 +83,7 @@ jobs:
           path: build-packages
 
       - name: Assemble repository payload
-        shell: bash
         run: |
-          set -euo pipefail
           pacman -Syu --noconfirm --needed pacman-contrib
           bash scripts/publish-repo/assemble-repo.sh build-packages repo
 

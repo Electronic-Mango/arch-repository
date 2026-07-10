@@ -16,4 +16,4 @@ if [[ ${#pkg_dirs[@]} -eq 0 ]]; then
   exit 1
 fi
 
-printf '%s\n' "${pkg_dirs[@]}" | jq -R '{package_dir: .}' | jq -s .
+printf '%s\n' "${pkg_dirs[@]}" | jq -R '{package_dir: .}' | jq -c -s .
