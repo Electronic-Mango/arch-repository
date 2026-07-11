@@ -124,7 +124,7 @@ jobs:
       - name: Assemble repository database
         run: |
           mkdir -p "${{ runner.temp }}/repo" && cd "${{ runner.temp }}/repo"
-          cp -v "${{ runner.temp }}/build-packages/"*.pkg.tar.* .
+          cp -v "${{ runner.temp }}/build-packages"/**/*.pkg.tar.* .
           repo-add --sign --key "${REPO_GPG_KEY_ID}" electronic-mango.db.tar.gz *.pkg.tar.zst
 
       - name: Publish or update release assets
