@@ -76,7 +76,6 @@ jobs:
           sudo --preserve-env=GITHUB_WORKSPACE,REPO_GPG_KEY_ID -u builder bash <<'EOF'
           mkdir -p "${GITHUB_WORKSPACE}/build-artifacts"
           cd "${GITHUB_WORKSPACE}/${{ matrix.package_dir }}"
-          echo "Changed to [${{ matrix.package_dir }}]: $(pwd)"
           makepkg -sf --sign --key "${REPO_GPG_KEY_ID}" --noconfirm --needed
           namcap PKGBUILD || true
           namcap *.pkg.tar.zst || true
