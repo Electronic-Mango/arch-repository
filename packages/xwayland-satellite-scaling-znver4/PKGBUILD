@@ -39,7 +39,7 @@ build() {
   CXXFLAGS="-march=znver4 -mtune=znver4 -O3 -pipe -fno-plt -fexceptions -Wp,-D_GLIBCXX_ASSERTIONS" \
   CARGO_PROFILE_RELEASE_LTO="thin" \
   CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
-  cargo build --frozen --release --features systemd
+  cargo build -vv --frozen --release --features systemd
 }
 
 check() {
