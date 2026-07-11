@@ -29,6 +29,7 @@ jobs:
         id: discover
         run: |
           shopt -s nullglob
+          sudo pacman -Suy --noconfirm --needed jq
           for pkgbuild in packages/*/PKGBUILD; do
             package_dir="${pkgbuild%/*}"
             artifact_name="${package_dir##*/}"
