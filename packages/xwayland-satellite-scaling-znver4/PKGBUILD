@@ -33,20 +33,11 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
-
-  export RUSTFLAGS="${RUSTFLAGS} -C opt-level=3 -C target-cpu=znver4"
-  export CFLAGS="${CFLAGS} -march=znver4 -mtune=znver4 -O3 -pipe -fno-plt -fexceptions"
-  export CXXFLAGS="${CXXFLAGS} -march=znver4 -mtune=znver4 -O3 -pipe -fno-plt -fexceptions -Wp,-D_GLIBCXX_ASSERTIONS"
-
-  export CARGO_PROFILE_RELEASE_LTO="thin"
-  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
-
-  echo "RUSTFLAGS: $RUSTFLAGS"
-  echo "CFLAGS: $CFLAGS"
-  echo "CXXFLAGS: $CXXFLAGS"
-  echo "CARGO_PROFILE_RELEASE_LTO: $CARGO_PROFILE_RELEASE_LTO"
-  echo "CARGO_PROFILE_RELEASE_CODEGEN_UNITS: $CARGO_PROFILE_RELEASE_CODEGEN_UNITS"
-
+  RUSTFLAGS="-C opt-level=3 -C target-cpu=znver4" \
+  CFLAGS="-march=znver4 -mtune=znver4 -O3 -pipe -fno-plt -fexceptions" \
+  CXXFLAGS="-march=znver4 -mtune=znver4 -O3 -pipe -fno-plt -fexceptions -Wp,-D_GLIBCXX_ASSERTIONS" \
+  CARGO_PROFILE_RELEASE_LTO="thin" \
+  CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
   cargo build --frozen --release --features systemd
 }
 
