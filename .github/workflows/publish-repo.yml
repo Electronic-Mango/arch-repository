@@ -1,4 +1,4 @@
-name: Build and Publish Arch Repository
+name: Publish Arch Repository
 
 on:
   workflow_dispatch:
@@ -73,15 +73,13 @@ jobs:
 
       - name: Build package
         run: |
-          sudo -u builder bash <<'EOF'
+          sudo --preserve-env=GITHUB_WORKSPACE -u builder bash <<'EOF'
           mkdir -p "${GITHUB_WORKSPACE}/build-artifacts"
-          echo "Current dir: $(pwd)"
           cd "${GITHUB_WORKSPACE}/${{ matrix.package_dir }}"
-          echo "Changed dir: $(pwd)"
           makepkg -sf --sign --key "${REPO_GPG_KEY_ID}" --noconfirm --needed
           namcap PKGBUILD || true
-          find . -maxdepth 1 -type f -name '*.pkg.tar.*' -not -name '*.sig' -exec namcap {} \; || true
-          find . -maxdepth 1 -type f -name '*.pkg.tar.*' -exec cp -v {} "${GITHUB_WORKSPACE}/build-artifacts/" \;
+          namcap *.pkg.tar.zst || true
+          cp -v *.pkg.tar.* "${GITHUB_WORKSPACE}/build-artifacts/"
           EOF
 
       - name: Upload package artifacts
