@@ -18,6 +18,7 @@ depends=(
 )
 makedepends=(
   clang
+  git
   rust
 )
 
