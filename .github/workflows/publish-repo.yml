@@ -9,7 +9,6 @@ on:
       - .github/workflows/publish-repo.yml
       - keys/**
       - packages/**
-      - scripts/publish-repo/**
 
 permissions:
   contents: write
@@ -27,7 +26,13 @@ jobs:
       - name: Find packages
         id: discover
         run: |
-          echo "matrix=$(bash scripts/publish-repo/discover-json.sh packages)" >> "${GITHUB_OUTPUT}"
+          shopt -s nullglob
+          for pkgbuild in packages/*/PKGBUILD; do
+            package_dir="${pkgbuild%/*}"
+            artifact_name="${package_dir##*/}"
+            jq -n --arg package_dir "${package_dir}" --arg artifact_name "${artifact_name}" \
+              '{package_dir: $package_dir, artifact_name: $artifact_name}'
+          done | jq -cs . | tr -d "\n" | sed "s/^/matrix=/" >> "${GITHUB_OUTPUT}"
 
   build:
     name: Build ${{ matrix.artifact_name }}
@@ -46,6 +51,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Validate signing secrets
+        run: |
+          [[ -n "${REPO_GPG_PRIVATE_KEY_B64}" ]] || (echo "Missing secret: ARCH_REPO_GPG_PRIVATE_KEY_B64" >&2; exit 1)
+          [[ -n "${REPO_GPG_KEY_ID}" ]] || (echo "Missing secret: ARCH_REPO_GPG_KEY_ID" >&2; exit 1)
+
+      - name: Import signing key for builder
+        run: |
+          printf '%s' "${REPO_GPG_PRIVATE_KEY_B64}" | base64 -d | sudo -u builder -- gpg --batch --import
+
       - name: Install build tools
         run: |
           pacman -Syu --noconfirm --needed git sudo pacman-contrib namcap gnupg
@@ -57,24 +71,18 @@ jobs:
           chmod 0440 /etc/sudoers.d/builder-pacman
           chown -R builder:builder "${GITHUB_WORKSPACE}"
 
-      - name: Validate signing secrets
-        run: |
-          [[ -n "${REPO_GPG_PRIVATE_KEY_B64}" ]] || (echo "Missing secret: ARCH_REPO_GPG_PRIVATE_KEY_B64" >&2; exit 1)
-          [[ -n "${REPO_GPG_KEY_ID}" ]] || (echo "Missing secret: ARCH_REPO_GPG_KEY_ID" >&2; exit 1)
-
-      - name: Import signing key for builder
-        run: |
-          printf '%s' "${REPO_GPG_PRIVATE_KEY_B64}" | \
-            base64 -d | \
-            sudo -u builder -- gpg --batch --import
-
       - name: Build package
         run: |
-          sudo -u builder -- bash \
-            "${GITHUB_WORKSPACE}/scripts/publish-repo/build-package.sh" \
-            "${GITHUB_WORKSPACE}/${{ matrix.package_dir }}" \
-            "${GITHUB_WORKSPACE}/build-artifacts" \
-            "${REPO_GPG_KEY_ID}"
+          sudo -u builder bash <<'EOF'
+          mkdir -p "${GITHUB_WORKSPACE}/build-artifacts"
+          echo "Current dir: $(pwd)"
+          cd "${GITHUB_WORKSPACE}/${{ matrix.package_dir }}"
+          echo "Changed dir: $(pwd)"
+          makepkg -sf --sign --key "${REPO_GPG_KEY_ID}" --noconfirm --needed
+          namcap PKGBUILD || true
+          find . -maxdepth 1 -type f -name '*.pkg.tar.*' -not -name '*.sig' -exec namcap {} \; || true
+          find . -maxdepth 1 -type f -name '*.pkg.tar.*' -exec cp -v {} "${GITHUB_WORKSPACE}/build-artifacts/" \;
+          EOF
 
       - name: Upload package artifacts
         uses: actions/upload-artifact@v4
@@ -97,15 +105,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download all package artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: ${{ runner.temp }}/build-packages
-
-      - name: Install publish tools
-        run: |
-          pacman -Syu --noconfirm --needed pacman-contrib gnupg
-
       - name: Validate signing secrets
         run: |
           [[ -n "${REPO_GPG_PRIVATE_KEY_B64}" ]] || (echo "Missing secret: ARCH_REPO_GPG_PRIVATE_KEY_B64" >&2; exit 1)
@@ -115,9 +114,20 @@ jobs:
         run: |
           printf '%s' "${REPO_GPG_PRIVATE_KEY_B64}" | base64 -d | gpg --batch --import
 
+      - name: Download all package artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ${{ runner.temp }}/build-packages
+
+      - name: Install publish tools
+        run: |
+          pacman -Syu --noconfirm --needed pacman-contrib gnupg
+
       - name: Assemble repository database
         run: |
-          bash scripts/publish-repo/assemble-repo.sh "${RUNNER_TEMP}/build-packages" "${RUNNER_TEMP}/repo" "${REPO_GPG_KEY_ID}"
+          mkdir -p "${{ runner.temp }}/repo" && cd "${{ runner.temp }}/repo"
+          cp -v "${{ runner.temp }}/build-packages/"*.pkg.tar.* .
+          repo-add --sign --key "${REPO_GPG_KEY_ID}" electronic-mango.db.tar.gz *.pkg.tar.zst
 
       - name: Publish or update release assets
         uses: ncipollo/release-action@v1

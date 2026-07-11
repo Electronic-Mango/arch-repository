@@ -28,6 +28,7 @@ jobs:
       - name: Find update scripts
         id: discover
         run: |
+          shopt -s nullglob
           for script in scripts/update/*.sh; do
             jq -n --arg script_path "${script}" --arg package_name "$(basename "${script%.sh}")" \
               '{script_path: $script_path, package_name: $package_name}'
