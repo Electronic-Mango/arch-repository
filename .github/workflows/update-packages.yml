@@ -53,7 +53,8 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "update: ${{ matrix.package_name }} to ${{ steps.version.outputs.pkgver }}"
-          title: "update: ${{ matrix.package_name }} to ${{ steps.version.outputs.pkgver }}"
+          commit-message: "chore: update ${{ matrix.package_name }} to ${{ steps.version.outputs.pkgver }}"
+          title: "chore: update ${{ matrix.package_name }} to ${{ steps.version.outputs.pkgver }}"
           branch: update/${{ matrix.package_name }}
           delete-branch: true
+          reviewers: Electronic-Mango
