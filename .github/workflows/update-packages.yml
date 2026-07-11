@@ -41,16 +41,19 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run update script
-        id: update
         run: |
-          version="$(bash "${{ matrix.script_path }}" packages | tail -n 1)"
-          echo "version=${version}" >> "${GITHUB_OUTPUT}"
+          bash "${{ matrix.script_path }}" packages
+      
+      - name: Get new version
+        id: version
+        run: |
+          grep '^pkgver=' "packages/${{ matrix.package_name }}/PKGBUILD" >> "${GITHUB_OUTPUT}"
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: update ${{ matrix.package_name }} to ${{ steps.update.outputs.version }}"
-          title: "chore: update ${{ matrix.package_name }} to ${{ steps.update.outputs.version }}"
+          commit-message: "chore: update ${{ matrix.package_name }} to ${{ steps.version.outputs.pkgver }}"
+          title: "chore: update ${{ matrix.package_name }} to ${{ steps.version.outputs.pkgver }}"
           branch: chore/update-${{ matrix.package_name }}
           delete-branch: true
