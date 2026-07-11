@@ -23,7 +23,6 @@ jobs:
         id: discover
         run: |
           matrix="$(bash scripts/discover-update-scripts.sh scripts/update)"
-          echo "${matrix}"
           echo "matrix=${matrix}" >> "${GITHUB_OUTPUT}"
 
   update:

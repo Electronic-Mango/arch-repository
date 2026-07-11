@@ -9,12 +9,7 @@ if [[ ! -d "${scripts_dir}" ]]; then
     exit 1
 fi
 
-matrix_entries=()
 for script in "${scripts_dir}"/*.sh; do
-    matrix_entries+=("$(jq -n \
-        --arg script_path "${script}" \
-        --arg package_name "$(basename "${script%.sh}")" \
-        '{script_path: $script_path, package_name: $package_name}')")
-done
-
-echo "${matrix_entries[*]}" | jq -cs .
+    jq -n --arg script_path "${script}" --arg package_name "$(basename "${script%.sh}")" \
+        '{script_path: $script_path, package_name: $package_name}'
+done | jq -cs .
