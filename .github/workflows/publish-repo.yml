@@ -51,6 +51,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create unprivileged builder user
+        run: |
+          useradd -m -s /bin/bash builder
+          echo 'builder ALL=(root) NOPASSWD: /usr/bin/pacman' > /etc/sudoers.d/builder-pacman
+          chmod 0440 /etc/sudoers.d/builder-pacman
+          chown -R builder:builder "${GITHUB_WORKSPACE}"
+
       - name: Validate signing secrets
         run: |
           [[ -n "${REPO_GPG_PRIVATE_KEY_B64}" ]] || (echo "Missing secret: ARCH_REPO_GPG_PRIVATE_KEY_B64" >&2; exit 1)
@@ -63,13 +70,6 @@ jobs:
       - name: Install build tools
         run: |
           pacman -Syu --noconfirm --needed git sudo pacman-contrib namcap gnupg
-
-      - name: Create unprivileged builder user
-        run: |
-          useradd -m -s /bin/bash builder
-          echo 'builder ALL=(root) NOPASSWD: /usr/bin/pacman' > /etc/sudoers.d/builder-pacman
-          chmod 0440 /etc/sudoers.d/builder-pacman
-          chown -R builder:builder "${GITHUB_WORKSPACE}"
 
       - name: Build package
         run: |
