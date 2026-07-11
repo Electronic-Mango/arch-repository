@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.discover.outputs.matrix }}
+    container:
+      image: cachyos/cachyos-v4:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -43,7 +45,7 @@ jobs:
       matrix:
         include: ${{ fromJson(needs.discover.outputs.matrix) }}
     container:
-      image: archlinux:base-devel
+      image: cachyos/cachyos-v4:latest
     env:
       REPO_GPG_PRIVATE_KEY_B64: ${{ secrets.ARCH_REPO_GPG_PRIVATE_KEY_B64 }}
       REPO_GPG_KEY_ID: ${{ secrets.ARCH_REPO_GPG_KEY_ID }}
@@ -101,7 +103,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     container:
-      image: archlinux:base-devel
+      image: cachyos/cachyos-v4:latest
     env:
       REPO_GPG_PRIVATE_KEY_B64: ${{ secrets.ARCH_REPO_GPG_PRIVATE_KEY_B64 }}
       REPO_GPG_KEY_ID: ${{ secrets.ARCH_REPO_GPG_KEY_ID }}
