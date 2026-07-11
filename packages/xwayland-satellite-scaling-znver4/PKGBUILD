@@ -34,6 +34,13 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
+
+  echo "RUSTFLAGS: $RUSTFLAGS"
+  echo "CFLAGS: $CFLAGS"
+  echo "CXXFLAGS: $CXXFLAGS"
+  echo "CARGO_PROFILE_RELEASE_LTO: $CARGO_PROFILE_RELEASE_LTO"
+  echo "CARGO_PROFILE_RELEASE_CODEGEN_UNITS: $CARGO_PROFILE_RELEASE_CODEGEN_UNITS"
+
   RUSTFLAGS="-C opt-level=3 -C target-cpu=znver4" \
   CFLAGS="-march=znver4 -mtune=znver4 -O3 -pipe -fno-plt -fexceptions" \
   CXXFLAGS="-march=znver4 -mtune=znver4 -O3 -pipe -fno-plt -fexceptions -Wp,-D_GLIBCXX_ASSERTIONS" \
