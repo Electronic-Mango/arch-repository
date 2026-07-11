@@ -9,10 +9,6 @@ if [[ ! -d "${scripts_dir}" ]]; then
     exit 1
 fi
 
-sudo apt-get update
-sudo apt-get install -y jq
-
-shopt -s nullglob
 matrix_entries=()
 for script in "${scripts_dir}"/*.sh; do
     matrix_entries+=("$(jq -n \
@@ -21,4 +17,4 @@ for script in "${scripts_dir}"/*.sh; do
         '{script_path: $script_path, package_name: $package_name}')")
 done
 
-echo "${matrix_entries[*]}" | jq -c -s .
+echo "${matrix_entries[*]}" | jq -cs .

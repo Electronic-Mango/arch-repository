@@ -22,7 +22,9 @@ jobs:
       - name: Find update scripts
         id: discover
         run: |
-          echo "matrix=$(bash scripts/discover-update-scripts.sh scripts/update)" >> "${GITHUB_OUTPUT}"
+          matrix="$(bash scripts/discover-update-scripts.sh scripts/update)"
+          echo "${matrix}"
+          echo "matrix=${matrix}" >> "${GITHUB_OUTPUT}"
 
   update:
     name: Update ${{ matrix.package_name }}
