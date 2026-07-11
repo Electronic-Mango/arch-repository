@@ -22,8 +22,10 @@ jobs:
       - name: Find update scripts
         id: discover
         run: |
-          matrix="$(bash scripts/discover-update-scripts.sh scripts/update)"
-          echo "matrix=${matrix}" >> "${GITHUB_OUTPUT}"
+          for script in scripts/update/*.sh; do
+            jq -n --arg script_path "${script}" --arg package_name "$(basename "${script%.sh}")" \
+              '{script_path: $script_path, package_name: $package_name}'
+          done | jq -cs . | tr -d "\n" | sed "s/^/matrix=/" >> "${GITHUB_OUTPUT}"
 
   update:
     name: Update ${{ matrix.package_name }}
