@@ -22,11 +22,7 @@ jobs:
       - name: Find update scripts
         id: discover
         run: |
-          sudo apt-get update && sudo apt-get install -y jq
-          for script in scripts/update/*.sh; do
-            jq -n --arg script_path "${script}" --arg package_name "${script##*/}" \
-              '{script_path: $script_path, package_name: ($package_name | sub("\\.sh$"; ""))}'
-          done | jq -cs . | tr -d "\n" | xargs -i echo "matrix={}" >> "${GITHUB_OUTPUT}"
+          echo "matrix=$(bash scripts/discover-update-scripts.sh scripts/update)" >> "${GITHUB_OUTPUT}"
 
   update:
     name: Update ${{ matrix.package_name }}
