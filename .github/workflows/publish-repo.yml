@@ -73,14 +73,20 @@ jobs:
 
       - name: Build package
         run: |
-          sudo --preserve-env=GITHUB_WORKSPACE,REPO_GPG_KEY_ID -u builder bash <<'EOF'
-          mkdir -p "${GITHUB_WORKSPACE}/build-artifacts"
-          cd "${GITHUB_WORKSPACE}/${{ matrix.package_dir }}"
+          sudo --preserve-env=REPO_GPG_KEY_ID -u builder bash <<'EOF'
+          cd "${{ github.workspace }}/${{ matrix.package_dir }}"
           makepkg -sf --sign --key "${REPO_GPG_KEY_ID}" --noconfirm --needed
-          namcap PKGBUILD || true
-          namcap *.pkg.tar.zst || true
-          cp -v *.pkg.tar.* "${GITHUB_WORKSPACE}/build-artifacts/"
           EOF
+
+      - name: Verify build artifacts
+        run: |
+          namcap "${{ matrix.package_dir }}/PKGBUILD" || true
+          namcap "${{ matrix.package_dir }}/"*.pkg.tar.zst || true
+
+      - name: Collect build artifacts
+        run: |
+          mkdir -p "build-artifacts"
+          mv "${{ matrix.package_dir }}/"*.pkg.tar.* "build-artifacts/"
 
       - name: Upload package artifacts
         uses: actions/upload-artifact@v4
@@ -125,7 +131,7 @@ jobs:
         run: |
           shopt -s globstar nullglob
           mkdir -p "${RUNNER_TEMP}/repo" && cd "${RUNNER_TEMP}/repo"
-          cp -v "${RUNNER_TEMP}/build-packages"/**/*.pkg.tar.* .
+          cp -v "${RUNNER_TEMP}/build-packages/"**/*.pkg.tar.* .
           repo-add --sign --key "${REPO_GPG_KEY_ID}" electronic-mango.db.tar.gz *.pkg.tar.zst
 
       - name: Publish or update release assets
