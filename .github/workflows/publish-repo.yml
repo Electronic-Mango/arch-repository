@@ -73,8 +73,8 @@ jobs:
 
       - name: Build package
         run: |
-          sudo --preserve-env=REPO_GPG_KEY_ID -u builder bash <<'EOF'
-          cd "${{ github.workspace }}/${{ matrix.package_dir }}"
+          sudo --preserve-env=GITHUB_WORKSPACE,REPO_GPG_KEY_ID -u builder bash <<'EOF'
+          cd "${GITHUB_WORKSPACE}/${{ matrix.package_dir }}"
           makepkg -sf --sign --key "${REPO_GPG_KEY_ID}" --noconfirm --needed
           EOF
 
