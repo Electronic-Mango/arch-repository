@@ -23,7 +23,7 @@ jobs:
       image: ghcr.io/electronic-mango/arch-repository-builder:latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Find packages
         id: discover
@@ -51,7 +51,7 @@ jobs:
       REPO_GPG_KEY_ID: ${{ secrets.ARCH_REPO_GPG_KEY_ID }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Validate signing secrets
         run: |
@@ -96,7 +96,7 @@ jobs:
       REPO_GPG_KEY_ID: ${{ secrets.ARCH_REPO_GPG_KEY_ID }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Validate signing secrets
         run: |
