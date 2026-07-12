@@ -16,17 +16,24 @@ api_response=$(curl -sL "${updates_api_url}")
 version=$(echo "${api_response}" | jq -r '.name')
 sha256hash=$(echo "${api_response}" | jq -r '.sha256hash')
 
-pkgbuild_file=$(find "${packages_dir}" -type f -path "*/${package_name}/PKGBUILD" -print -quit)
-
-if [[ -z "${pkgbuild_file}" ]]; then
-    echo "PKGBUILD file not found for ${package_name} in ${packages_dir}" >&2
-    exit 1
-fi
-
 if grep -q "pkgver=${version}" "${pkgbuild_file}"; then
     echo "PKGBUILD is already up to date with version ${version}."
     exit 0
 fi
 
-sed -i "s/^pkgver=.*/pkgver=${version}/" "${pkgbuild_file}"
-sed -i "s/^sha256sums_x86_64=.*/sha256sums_x86_64=('${sha256hash}')/" "${pkgbuild_file}"
+cd "${packages_dir}/${package_name}"
+
+sed -i "s/^pkgver=.*/pkgver=${version}/" PKGBUILD
+sed -i "s/^sha256sums_x86_64=.*/sha256sums_x86_64=('${sha256hash}')/" PKGBUILD
+
+# Use official .deb for tracking dependency changes
+export pkgver="${version}"
+deb_source_url="$(grep source_x86_64 PKGBUILD | awk -F'::' '{print $2}' | cut -d'"' -f1 | sed 's/linux-x64/linux-deb-x64/' | envsubst)"
+temp_deb_dir="$(mktemp -d)"
+pushd "${temp_deb_dir}"
+echo "Downloading official .deb package from ${deb_source_url} ..."
+wget -O "code_${version}.deb" -- "${deb_source_url}"
+bsdtar -xf *.deb
+find -type f -name "control.tar.xz" -exec bsdtar -xf {} \;
+popd
+find "${temp_deb_dir}" -type f -name "control" -exec cp {} . \;
