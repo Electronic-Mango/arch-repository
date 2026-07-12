@@ -16,19 +16,22 @@ api_response=$(curl -sL "${updates_api_url}")
 version=$(echo "${api_response}" | jq -r '.name')
 sha256hash=$(echo "${api_response}" | jq -r '.sha256hash')
 
-if grep -q "pkgver=${version}" "${pkgbuild_file}"; then
+cd "${packages_dir}/${package_name}"
+
+if grep -q "pkgver=${version}" PKGBUILD; then
     echo "PKGBUILD is already up to date with version ${version}."
     exit 0
 fi
-
-cd "${packages_dir}/${package_name}"
 
 sed -i "s/^pkgver=.*/pkgver=${version}/" PKGBUILD
 sed -i "s/^sha256sums_x86_64=.*/sha256sums_x86_64=('${sha256hash}')/" PKGBUILD
 
 # Use official .deb for tracking dependency changes
-export pkgver="${version}"
-deb_source_url="$(grep source_x86_64 PKGBUILD | awk -F'::' '{print $2}' | cut -d'"' -f1 | sed 's/linux-x64/linux-deb-x64/' | envsubst)"
+deb_source_url="$(grep source_x86_64 PKGBUILD | \
+    awk -F'::' '{print $2}' | \
+    cut -d'"' -f1 | \
+    sed 's/linux-x64/linux-deb-x64/' | \
+    pkgver="${version}" envsubst)"
 temp_deb_dir="$(mktemp -d)"
 pushd "${temp_deb_dir}"
 echo "Downloading official .deb package from ${deb_source_url} ..."
