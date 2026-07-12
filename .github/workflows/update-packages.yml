@@ -22,7 +22,7 @@ jobs:
     outputs:
       matrix: ${{ steps.discover.outputs.matrix }}
     container:
-      image: ghcr.io/Electronic-Mango/arch-repository-builder:latest
+      image: ghcr.io/electronic-mango/arch-repository-builder:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -45,7 +45,7 @@ jobs:
       matrix:
         include: ${{ fromJson(needs.discover.outputs.matrix) }}
     container:
-      image: ghcr.io/Electronic-Mango/arch-repository-builder:latest
+      image: ghcr.io/electronic-mango/arch-repository-builder:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
