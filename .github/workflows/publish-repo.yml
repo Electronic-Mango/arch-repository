@@ -75,17 +75,14 @@ jobs:
       - name: Collect build artifacts
         run: |
           mkdir -p "build-artifacts"
-          cp -v "${{ matrix.package_dir }}/"*.pkg.tar.* "build-artifacts/"
-
-      - name: Archive build artifacts for upload
-        run: |
-          tar -C "build-artifacts" -cf "pkgs-${{ matrix.artifact_name }}.tar" .
+          mv "${{ matrix.package_dir }}/"*.pkg.tar.* build-artifacts/
+          rename ':' '.' build-artifacts/*
 
       - name: Upload package artifacts
         uses: actions/upload-artifact@v7
         with:
           name: pkgs-${{ matrix.artifact_name }}
-          path: pkgs-${{ matrix.artifact_name }}.tar
+          path: build-artifacts/*
           retention-days: 1
           if-no-files-found: error
 
@@ -120,7 +117,7 @@ jobs:
         run: |
           shopt -s globstar nullglob
           mkdir -p "${RUNNER_TEMP}/repo" && cd "${RUNNER_TEMP}/repo"
-          for archive in "${RUNNER_TEMP}/build-packages/"**/*.tar; do tar -xf "${archive}"; done
+          cp -v "${RUNNER_TEMP}/build-packages/"**/*.pkg.tar.* .
           repo-add --sign --key "${REPO_GPG_KEY_ID}" electronic-mango.db.tar.gz *.pkg.tar.zst
 
       - name: Publish or update release assets
