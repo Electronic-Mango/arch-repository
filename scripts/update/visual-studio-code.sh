@@ -9,9 +9,6 @@ if [[ ! -d "${packages_dir}" ]]; then
     exit 1
 fi
 
-sudo apt-get update
-sudo apt-get install -y curl jq
-
 package_name="visual-studio-code"
 updates_api_url="https://update.code.visualstudio.com/api/update/linux-x64/stable/latest"
 

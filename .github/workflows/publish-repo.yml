@@ -20,7 +20,7 @@ jobs:
     outputs:
       matrix: ${{ steps.discover.outputs.matrix }}
     container:
-      image: archlinux:base-devel
+      image: electronic-mango/arch-repository-builder:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,7 +29,6 @@ jobs:
         id: discover
         run: |
           shopt -s nullglob
-          sudo pacman -Suy --noconfirm --needed jq
           for pkgbuild in packages/*/PKGBUILD; do
             package_dir="${pkgbuild%/*}"
             artifact_name="${package_dir##*/}"
@@ -46,20 +45,13 @@ jobs:
       matrix:
         include: ${{ fromJson(needs.discover.outputs.matrix) }}
     container:
-      image: archlinux:base-devel
+      image: electronic-mango/arch-repository-builder:latest
     env:
       REPO_GPG_PRIVATE_KEY_B64: ${{ secrets.ARCH_REPO_GPG_PRIVATE_KEY_B64 }}
       REPO_GPG_KEY_ID: ${{ secrets.ARCH_REPO_GPG_KEY_ID }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Create unprivileged builder user
-        run: |
-          useradd -m -s /bin/bash builder
-          echo 'builder ALL=(root) NOPASSWD: /usr/bin/pacman' > /etc/sudoers.d/builder-pacman
-          chmod 0440 /etc/sudoers.d/builder-pacman
-          chown -R builder:builder "${GITHUB_WORKSPACE}"
 
       - name: Validate signing secrets
         run: |
@@ -68,18 +60,12 @@ jobs:
 
       - name: Import signing key for builder
         run: |
-          printf '%s' "${REPO_GPG_PRIVATE_KEY_B64}" | base64 -d | sudo -u builder -- gpg --batch --import
-
-      - name: Install build tools
-        run: |
-          pacman -Syu --noconfirm --needed git sudo pacman-contrib namcap gnupg
+          printf '%s' "${REPO_GPG_PRIVATE_KEY_B64}" | base64 -d | gpg --batch --import
 
       - name: Build package
         run: |
-          sudo --preserve-env=GITHUB_WORKSPACE,REPO_GPG_KEY_ID -u builder bash <<'EOF'
-          cd "${GITHUB_WORKSPACE}/${{ matrix.package_dir }}"
+          cd "${{ github.workspace }}/${{ matrix.package_dir }}"
           makepkg -sf --sign --key "${REPO_GPG_KEY_ID}" --noconfirm --needed
-          EOF
 
       - name: Verify build artifacts
         run: |
@@ -104,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     container:
-      image: archlinux:base-devel
+      image: electronic-mango/arch-repository-builder:latest
     env:
       REPO_GPG_PRIVATE_KEY_B64: ${{ secrets.ARCH_REPO_GPG_PRIVATE_KEY_B64 }}
       REPO_GPG_KEY_ID: ${{ secrets.ARCH_REPO_GPG_KEY_ID }}
@@ -125,10 +111,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: ${{ runner.temp }}/build-packages
-
-      - name: Install publish tools
-        run: |
-          pacman -Syu --noconfirm --needed pacman-contrib gnupg
 
       - name: Assemble repository database
         run: |
