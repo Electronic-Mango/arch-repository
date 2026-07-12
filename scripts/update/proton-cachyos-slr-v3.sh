@@ -75,7 +75,7 @@ new_b2hash="$(curl -fsSL -- "${new_source_url}" | b2sum | awk '{print $1}')"
 sed -i "s/${old_b2hash}/${new_b2hash}/" PKGBUILD
 
 sed -i \
-    -e 's/ = proton-cachyos-slr/ = proton-cachyos-slr-v3/' \
-    -e "s/${old_b2hash}/${new_b2hash}/" \
-    -e "s/${old_source_url}/${new_source_url}/" \
+    -e 's| = proton-cachyos-slr| = proton-cachyos-slr-v3|' \
+    -e "s|${old_b2hash}|${new_b2hash}|" \
+    -e "s|${old_source_url}|${new_source_url}|" \
     .SRCINFO
