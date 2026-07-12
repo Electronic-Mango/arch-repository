@@ -76,7 +76,7 @@ jobs:
         run: |
           mkdir -p "build-artifacts"
           mv "${{ matrix.package_dir }}/"*.pkg.tar.* build-artifacts/
-          rename ':' '.' build-artifacts/*
+          rename ':' '.' build-artifacts/* || true
 
       - name: Upload package artifacts
         uses: actions/upload-artifact@v7
