@@ -61,7 +61,8 @@ jobs:
       - name: Get new version
         id: version
         run: |
-          grep '^pkgver=' "packages/${{ matrix.package_name }}/PKGBUILD" >> "${GITHUB_OUTPUT}"
+          source "packages/${{ matrix.package_name }}/PKGBUILD"
+          echo "pkgver=${pkgver}" >> "${GITHUB_OUTPUT}"
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6
