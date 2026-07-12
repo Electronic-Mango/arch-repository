@@ -1,5 +1,6 @@
 FROM archlinux:base-devel
 
+RUN pacman-key --init
 RUN pacman -Suy --noconfirm --needed git sudo pacman-contrib namcap gnupg jq curl
 RUN pacman -Scc --noconfirm
 
