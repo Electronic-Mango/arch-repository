@@ -1,7 +1,7 @@
 FROM archlinux:base-devel
 
 # Enable multilib repository
-RUN sed -i '/^\#\[multilib\]/,/^\#Include/s/^#//' /etc/pacman.conf
+RUN printf "%s\n%s" '[multilib]' 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 
 # Update and install basic packages
 RUN pacman-key --init
