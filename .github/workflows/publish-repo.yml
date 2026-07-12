@@ -121,14 +121,13 @@ jobs:
           repo-add --sign --key "${REPO_GPG_KEY_ID}" electronic-mango.db.tar.gz *.pkg.tar.zst
 
       - name: Publish or update release assets
-        uses: ncipollo/release-action@v1
+        uses: softprops/action-gh-release@v3
         with:
-          tag: repo-latest
+          tag_name: repo-latest
           name: Repository
-          allowUpdates: true
-          replacesArtifacts: true
-          makeLatest: true
-          artifacts: "${{ runner.temp }}/repo/*"
+          make_latest: true
+          files: "${{ runner.temp }}/repo/*"
+          overwrite_files: true
           body: |
             Add repository configuration to `/etc/pacman.conf`:
             ```conf
