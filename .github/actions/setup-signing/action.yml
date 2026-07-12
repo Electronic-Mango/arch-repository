@@ -1,0 +1,29 @@
+name: Setup repository signing key
+description: Validate and import GPG private key used for signing packages.
+
+inputs:
+  gpg-private-key-b64:
+    description: Base64-encoded ASCII-armored GPG private key used for signing.
+    required: true
+  gpg-key-id:
+    description: GPG key ID (fingerprint) of the private key.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Validate GPG secrets
+      shell: bash
+      env:
+        REPO_GPG_PRIVATE_KEY_B64: ${{ inputs.gpg-private-key-b64 }}
+        REPO_GPG_KEY_ID: ${{ inputs.gpg-key-id }}
+      run: |
+        [[ -n "${REPO_GPG_PRIVATE_KEY_B64}" ]] || (echo "Missing GPG private key!" >&2; exit 1)
+        [[ -n "${REPO_GPG_KEY_ID}" ]] || (echo "Missing GPG fingerprint!" >&2; exit 1)
+
+    - name: Import GPG key
+      shell: bash
+      env:
+        REPO_GPG_PRIVATE_KEY_B64: ${{ inputs.gpg-private-key-b64 }}
+      run: |
+        printf '%s' "${REPO_GPG_PRIVATE_KEY_B64}" | base64 -d | gpg --batch --import

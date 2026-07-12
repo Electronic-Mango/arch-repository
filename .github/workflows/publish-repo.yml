@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - .github/workflows/publish-repo.yml
+      - .github/actions/**
       - keys/**
       - packages/**
 
@@ -46,26 +47,20 @@ jobs:
         include: ${{ fromJson(needs.discover.outputs.matrix) }}
     container:
       image: ghcr.io/electronic-mango/arch-repository-builder:latest
-    env:
-      REPO_GPG_PRIVATE_KEY_B64: ${{ secrets.ARCH_REPO_GPG_PRIVATE_KEY_B64 }}
-      REPO_GPG_KEY_ID: ${{ secrets.ARCH_REPO_GPG_KEY_ID }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Validate signing secrets
-        run: |
-          [[ -n "${REPO_GPG_PRIVATE_KEY_B64}" ]] || (echo "Missing secret: ARCH_REPO_GPG_PRIVATE_KEY_B64" >&2; exit 1)
-          [[ -n "${REPO_GPG_KEY_ID}" ]] || (echo "Missing secret: ARCH_REPO_GPG_KEY_ID" >&2; exit 1)
-
-      - name: Import signing key for builder
-        run: |
-          printf '%s' "${REPO_GPG_PRIVATE_KEY_B64}" | base64 -d | gpg --batch --import
+      - name: Setup signing key for builder
+        uses: ./.github/actions/setup-signing
+        with:
+          gpg-private-key-b64: ${{ secrets.ARCH_REPO_GPG_PRIVATE_KEY_B64 }}
+          gpg-key-id: ${{ secrets.ARCH_REPO_GPG_KEY_ID }}
 
       - name: Build package
         run: |
           cd "${{ matrix.package_dir }}"
-          makepkg -sf --sign --key "${REPO_GPG_KEY_ID}" --noconfirm --needed
+          makepkg -sf --sign --key "${{ secrets.ARCH_REPO_GPG_KEY_ID }}" --noconfirm --needed
 
       - name: Verify build artifacts
         run: |
@@ -92,21 +87,15 @@ jobs:
     needs: build
     container:
       image: ghcr.io/electronic-mango/arch-repository-builder:latest
-    env:
-      REPO_GPG_PRIVATE_KEY_B64: ${{ secrets.ARCH_REPO_GPG_PRIVATE_KEY_B64 }}
-      REPO_GPG_KEY_ID: ${{ secrets.ARCH_REPO_GPG_KEY_ID }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Validate signing secrets
-        run: |
-          [[ -n "${REPO_GPG_PRIVATE_KEY_B64}" ]] || (echo "Missing secret: ARCH_REPO_GPG_PRIVATE_KEY_B64" >&2; exit 1)
-          [[ -n "${REPO_GPG_KEY_ID}" ]] || (echo "Missing secret: ARCH_REPO_GPG_KEY_ID" >&2; exit 1)
-
-      - name: Import signing key
-        run: |
-          printf '%s' "${REPO_GPG_PRIVATE_KEY_B64}" | base64 -d | gpg --batch --import
+      - name: Setup signing key
+        uses: ./.github/actions/setup-signing
+        with:
+          gpg-private-key-b64: ${{ secrets.ARCH_REPO_GPG_PRIVATE_KEY_B64 }}
+          gpg-key-id: ${{ secrets.ARCH_REPO_GPG_KEY_ID }}
 
       - name: Download all package artifacts
         uses: actions/download-artifact@v8
@@ -118,7 +107,7 @@ jobs:
           shopt -s globstar nullglob
           mkdir -p "${RUNNER_TEMP}/repo" && cd "${RUNNER_TEMP}/repo"
           cp -v "${RUNNER_TEMP}/build-packages/"**/*.pkg.tar.* .
-          repo-add --sign --key "${REPO_GPG_KEY_ID}" electronic-mango.db.tar.gz *.pkg.tar.zst
+          repo-add --sign --key "${{ secrets.ARCH_REPO_GPG_KEY_ID }}" electronic-mango.db.tar.gz *.pkg.tar.zst
 
       - name: Publish or update release assets
         uses: softprops/action-gh-release@v3
