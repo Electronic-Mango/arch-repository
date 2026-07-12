@@ -78,7 +78,7 @@ jobs:
           mv "${{ matrix.package_dir }}/"*.pkg.tar.* "build-artifacts/"
 
       - name: Upload package artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: pkgs-${{ matrix.artifact_name }}
           path: build-artifacts/*
@@ -108,7 +108,7 @@ jobs:
           printf '%s' "${REPO_GPG_PRIVATE_KEY_B64}" | base64 -d | gpg --batch --import
 
       - name: Download all package artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: ${{ runner.temp }}/build-packages
 
