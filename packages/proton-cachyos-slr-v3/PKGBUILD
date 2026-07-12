@@ -1,7 +1,7 @@
 # Maintainer: Peter Jung ptr1337 <admin@ptr1337.dev>
 # Maintainer: loathingkernel <loathingkernel _a_ gmail _d_ com>
 
-pkgname=proton-cachyos-slr
+pkgname=proton-cachyos-slr-v3
 _srctag=11.0-20260601
 pkgver=${_srctag//-/.}
 pkgrel=3
