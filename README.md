@@ -34,3 +34,27 @@ And update the repositories:
 ```bash
 sudo pacman -Suy
 ```
+
+
+## Packages
+
+### `visual-studio-code`
+
+The official, Microsoft VS Code tarball.
+
+Maintenance is done "manually", there's no upstream.
+
+File `control` is a metadata file from `.deb` package.
+It cannot be used directly in Arch, but it's useful for tracking dependency changes (which, unfortunately, need to be applied manually).
+
+
+### `proton-cachyos-slr-v3`
+
+Modified official CachyOS Proton package - [`proton-cachyos-slr`](https://github.com/CachyOS/CachyOS-PKGBUILDS/tree/master/proton-cachyos-slr).
+
+There are a couple of changes:
+ - Use `x86_64_v3` version, instead of regular `x86_64`
+ - Modify `LogPixels` in default registry files to double DPI (`60` -> `c0`, or `96` -> `192`)
+ - Change display name to `Proton CachyOS <version>`
+
+The package is modified upstream of the original package, not fully custom one.
