@@ -1,0 +1,40 @@
+pkgname=noctalia-meta
+pkgver=5.0.0_beta.3
+pkgrel=2
+pkgdesc='Metapackage for keeping track of noctalia dependencies'
+arch=(any)
+url='https://github.com/noctalia-dev/noctalia'
+license=('MIT')
+
+depends=(
+  'cairo'
+  'curl'
+  'fontconfig'
+  'freetype2'
+  'gcc-libs'
+  'git'
+  'glib2'
+  'glibc'
+  'jemalloc'
+  'libglvnd'
+  'libpipewire'
+  'libqalculate'
+  'librsvg'
+  'libwebp'
+  'libwireplumber'
+  'libxkbcommon'
+  'libxml2'
+  'md4c'
+  'pam'
+  'polkit'
+  'pango'
+  'sdbus-cpp'
+  'tomlplusplus'
+  'wayland'
+)
+
+conflicts=('noctalia' 'noctalia-bin' 'noctalia-git' 'noctalia-shell')
+
+package() {
+  :
+}
