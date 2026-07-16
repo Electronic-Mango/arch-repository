@@ -60,7 +60,7 @@ jobs:
       - name: Build package
         run: |
           cd "${{ matrix.package_dir }}"
-          sudo pacman -Suy
+          sudo pacman -Suy --noconfirm
           makepkg -sf --sign --key "${{ secrets.ARCH_REPO_GPG_KEY_ID }}" --noconfirm --needed
 
       - name: Verify build artifacts
