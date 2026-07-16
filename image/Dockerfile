@@ -5,7 +5,7 @@ RUN printf "%s\n%s" '[multilib]' 'Include = /etc/pacman.d/mirrorlist' >> /etc/pa
 
 # Update and install basic packages
 RUN pacman-key --init
-RUN pacman -Suy --noconfirm --needed git sudo pacman-contrib namcap gnupg jq curl wget
+RUN pacman -Suy --noconfirm --needed git sudo pacman-contrib namcap gnupg jq curl wget moreutils
 RUN pacman -Scc --noconfirm
 
 # Create unprivileged user for building packages
