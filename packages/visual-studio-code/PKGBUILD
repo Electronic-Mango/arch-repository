@@ -29,6 +29,7 @@ depends=(
     shared-mime-info
     xdg-utils
     alsa-lib
+    socat
 )
 optdepends=(
     'glib2: Needed for move to trash functionality'
