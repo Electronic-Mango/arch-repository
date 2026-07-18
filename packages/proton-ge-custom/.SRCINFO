@@ -1,0 +1,27 @@
+pkgbase = proton-ge-custom
+	pkgdesc = Compatibility tool for Steam Play based on Wine and additional components
+	pkgver = GE_Proton10_34
+	pkgrel = 1
+	epoch = 1
+	url = https://github.com/gloriouseggroll/proton-ge-custom
+	arch = x86_64
+	license = BSD
+	license = LGPL
+	license = zlib
+	license = MIT
+	license = MPL
+	license = custom
+	makedepends = rsync
+	optdepends = NTSYNC-MODULE
+	provides = proton-ge-custom
+	provides = proton
+	conflicts = proton-ge-custom-bin
+	options = strip
+	options = emptydirs
+	backup = usr/share/steam/compatibilitytools.d/proton-ge-custom/user_settings.py
+	source = https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-34/GE-Proton10-34.tar.gz
+	source = ntsync.conf
+	sha512sums = 9fd0b2cfbd501c0b5c892239c392c7283a029b5e5d5a77d3f85b0ce190d555456241a18eebca16b53f094b403499201c13550a3f0b9b365e1a5eb5737cbb7303
+	sha512sums = ac2bd634838ffe6b90f2637e229013f0993fc1013271dbeefd216dc262a8bb79e4a5ce15a75cbfcb0c3b521d32f4ebe1ed25a6b066b99cc327b60bd6d7212e6f
+
+pkgname = proton-ge-custom
