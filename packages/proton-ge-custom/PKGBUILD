@@ -1,0 +1,45 @@
+# Maintainer: Electronic-Mango <78230210+Electronic-Mango@users.noreply.github.com>
+
+pkgname=proton-ge-custom
+pkgver=GE_Proton10_34
+_pkgver=${pkgver//_/-}
+pkgrel=1
+epoch=1
+
+pkgdesc="Compatibility tool for Steam Play based on Wine and additional components"
+url="https://github.com/gloriouseggroll/proton-ge-custom"
+arch=(x86_64)
+options=(strip emptydirs)
+license=('BSD' 'LGPL' 'zlib' 'MIT' 'MPL' 'custom')
+makedepends=(rsync)
+optdepends=(NTSYNC-MODULE)
+provides=('proton-ge-custom' 'proton')
+conflicts=('proton-ge-custom-bin')
+backup=("usr/share/steam/compatibilitytools.d/${pkgname}/user_settings.py")
+
+source=(
+    ${_pkgver}_${pkgrel}.tar.gz::${url}/releases/download/${_pkgver}/${_pkgver}.tar.gz
+    ntsync.conf
+)
+sha512sums=(
+    '9fd0b2cfbd501c0b5c892239c392c7283a029b5e5d5a77d3f85b0ce190d555456241a18eebca16b53f094b403499201c13550a3f0b9b365e1a5eb5737cbb7303'
+    'ac2bd634838ffe6b90f2637e229013f0993fc1013271dbeefd216dc262a8bb79e4a5ce15a75cbfcb0c3b521d32f4ebe1ed25a6b066b99cc327b60bd6d7212e6f'
+)
+
+build() {
+    find -type f -name "*.reg" -exec sed -i 's/"LogPixels"=dword:00000060/"LogPixels"=dword:000000c0/' -- {} \;
+    sed -i 's/"display_name" "GE-Proton/"display_name" "Proton GE /' "${_pkgver}"/compatibilitytool.vdf
+}
+
+package() {
+    local _compatdir="${pkgdir}/usr/share/steam/compatibilitytools.d"
+    mkdir -p "${_compatdir}/${pkgname}"
+    rsync --delete -arx "${_pkgver}"/* "${_compatdir}/${pkgname}"
+
+    mkdir -p "${pkgdir}/usr/share/licenses/${pkgname}"
+    mv "${_compatdir}/${pkgname}"/{PATENTS.AV1,LICENSE{,.OFL}} \
+        "${pkgdir}/usr/share/licenses/${pkgname}"
+
+    # Load ntsync module
+    install -Dm644 "$srcdir/ntsync.conf" "$pkgdir/usr/lib/modules-load.d/10-$pkgname.conf"
+}
