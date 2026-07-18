@@ -1,7 +1,7 @@
 pkgbase = proton-ge-custom
 	pkgdesc = Compatibility tool for Steam Play based on Wine and additional components
 	pkgver = GE_Proton11_1
-	pkgrel = 1
+	pkgrel = 2
 	epoch = 1
 	url = https://github.com/gloriouseggroll/proton-ge-custom
 	arch = x86_64
@@ -16,7 +16,7 @@ pkgbase = proton-ge-custom
 	provides = proton-ge-custom
 	provides = proton
 	conflicts = proton-ge-custom-bin
-	options = strip
+	options = !strip
 	options = emptydirs
 	backup = usr/share/steam/compatibilitytools.d/proton-ge-custom/user_settings.py
 	source = https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-1/GE-Proton11-1.tar.gz
