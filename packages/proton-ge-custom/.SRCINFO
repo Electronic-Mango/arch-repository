@@ -1,7 +1,7 @@
 pkgbase = proton-ge-custom
 	pkgdesc = Compatibility tool for Steam Play based on Wine and additional components
 	pkgver = GE_Proton10_34
-	pkgrel = 1
+	pkgrel = 2
 	epoch = 1
 	url = https://github.com/gloriouseggroll/proton-ge-custom
 	arch = x86_64
