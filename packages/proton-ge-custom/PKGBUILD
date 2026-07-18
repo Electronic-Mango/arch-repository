@@ -1,8 +1,8 @@
 # Maintainer: Electronic-Mango <78230210+Electronic-Mango@users.noreply.github.com>
 
 pkgname=proton-ge-custom
-pkgver=GE_Proton10_34
-_pkgver=${pkgver//_/-}
+_pkgver=GE-Proton10-34
+pkgver=${_pkgver//-/_}
 pkgrel=1
 epoch=1
 
