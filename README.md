@@ -60,6 +60,16 @@ There are a couple of changes:
 The package is modified upstream of the original package, not fully custom one.
 
 
+### `proton-ge-custom`
+
+Official release of [GE-Proton](https://github.com/GloriousEggroll/proton-ge-custom).
+Not synchronized with any AUR packages, this one is custom.
+
+Similar changes as the CachyOS one:
+ - Modify `LogPixels` in default registry files to double DPI (`60` -> `c0`, or `96` -> `192`)
+ - Change display name to `Proton GE <version>`
+
+
 ### `noctalia-meta`
 
 A meta-package used for tracking runtime dependencies of [Noctalia v5](https://github.com/noctalia-dev/noctalia).
