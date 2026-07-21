@@ -69,6 +69,8 @@ Similar changes as the CachyOS one:
  - Modify `LogPixels` in default registry files to double DPI (`60` -> `c0`, or `96` -> `192`)
  - Change display name to `Proton GE <version>`
 
+Additionally, similarly to CachyOS version, this package enables ntsync through a kernel module.
+
 
 ### `noctalia-meta`
 
