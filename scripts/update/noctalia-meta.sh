@@ -14,10 +14,10 @@ package_name="noctalia-meta"
 cd "${packages_dir}/${package_name}"
 
 # Download PKGBUILD from AUR
-aur_pkgbuild_url="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=noctalia"
+aur_pkgbuild_url="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=noctalia-git"
 aur_pkgbuild="$(mktemp)"
 if ! wget -O "${aur_pkgbuild}" -- "${aur_pkgbuild_url}"; then
-    echo "Failed to download noctalia PKGBUILD from AUR, skipping."
+    echo "Failed to download noctalia-git PKGBUILD from AUR, skipping."
     exit 0
 fi
 
