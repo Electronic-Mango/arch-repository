@@ -1,7 +1,7 @@
 # Maintainer: Electronic-Mango <78230210+Electronic-Mango@users.noreply.github.com>
 
 pkgname=proton-ge-custom
-_pkgver=GE-Proton11-2
+_pkgver=GE-Proton11-3
 pkgver=${_pkgver//-/_}
 pkgrel=1
 epoch=1
@@ -22,7 +22,7 @@ source=(
     ntsync.conf
 )
 sha512sums=(
-    '82c3d76c200657e6eb2c7ce44c0fd37ad40d3d9131d90a6c18e4d79c454813bab117e15f30a12f8d819710e4aea1992c797dac9f797b46d0a62ac981046edb93'
+    '528ae7831f909c0a4fff5d83889ac6dab3c9706746cd148f05f3064ac042763853d68277e2a815f18f16c17285d5d128864a03c563956c0dce30bafcd16aa77c'
     'ac2bd634838ffe6b90f2637e229013f0993fc1013271dbeefd216dc262a8bb79e4a5ce15a75cbfcb0c3b521d32f4ebe1ed25a6b066b99cc327b60bd6d7212e6f'
 )
 
