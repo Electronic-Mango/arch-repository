@@ -1,6 +1,6 @@
 pkgname=noctalia-meta
 pkgver=5.0.0.r1191.g39a4a335c
-pkgrel=21
+pkgrel=23
 pkgdesc='Metapackage for keeping track of noctalia dependencies'
 arch=(any)
 url='https://github.com/noctalia-dev/noctalia'
@@ -17,6 +17,7 @@ depends=(
   'glibc'
   'jemalloc'
   'libglvnd'
+  'libjxl'
   'libpipewire'
   'libqalculate'
   'librsvg'
