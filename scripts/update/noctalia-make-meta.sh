@@ -22,7 +22,7 @@ if ! wget -O "${aur_pkgbuild}" -- "${aur_pkgbuild_url}"; then
 fi
 
 # Update dependencies
-awk '
+awk -v q="'" '
 FNR==NR {
     if (/^makedepends=\(/) inside=1
     if (inside) {
@@ -34,6 +34,7 @@ FNR==NR {
 }
 
 /^depends=\(/ {
+    if (block !~ q "just" q) sub(/\n\)[[:space:]]*$/, "\n  " q "just" q "\n)", block)
     sub(/^makedepends=/, "depends=", block)
     printf "%s\n", block
     skip=1
