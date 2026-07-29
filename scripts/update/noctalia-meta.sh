@@ -52,6 +52,3 @@ skip {
 
 { print }
 ' "${aur_pkgbuild}" PKGBUILD | sponge PKGBUILD
-
-# Update .SRCINFO
-makepkg --printsrcinfo > .SRCINFO

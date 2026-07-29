@@ -56,12 +56,18 @@ jobs:
 
       - name: Run update script
         run: |
-          bash "${{ matrix.script_path }}" packages
+          bash "${{ matrix.script_path }}" ./packages/
+        
+      - name: Update .SRCINFO
+        working-directory: "packages/${{ matrix.package_name }}"
+        run: |
+          makepkg --printsrcinfo > .SRCINFO
       
       - name: Get new version
         id: version
+        working-directory: "packages/${{ matrix.package_name }}"
         run: |
-          source "packages/${{ matrix.package_name }}/PKGBUILD"
+          source "PKGBUILD"
           echo "pkgver=${pkgver}" >> "${GITHUB_OUTPUT}"
 
       - name: Create pull request

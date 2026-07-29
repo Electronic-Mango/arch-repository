@@ -27,8 +27,6 @@ sed -i "s/^pkgver=.*/pkgver=${version}/" PKGBUILD
 sed -i "s/^sha256sums_x86_64=.*/sha256sums_x86_64=('${sha256hash}')/" PKGBUILD
 sed -i "s/pkgrel=.*/pkgrel=1/" PKGBUILD
 
-makepkg --printsrcinfo > .SRCINFO
-
 # Use official .deb for tracking dependency changes
 deb_source_url="$(grep source_x86_64 PKGBUILD | \
     awk -F'::' '{print $2}' | \

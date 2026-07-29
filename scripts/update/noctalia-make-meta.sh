@@ -58,6 +58,3 @@ version=$(grep -Po "pkgver=\K.+" "${aur_pkgbuild}")
 release=$(grep -Po "pkgrel=\K.+" "${aur_pkgbuild}")
 sed -i "s/^pkgver=.*/pkgver=${version}/" PKGBUILD
 sed -i "s/^pkgrel=.*/pkgrel=${release}/" PKGBUILD
-
-# Update .SRCINFO
-makepkg --printsrcinfo > .SRCINFO

@@ -32,5 +32,3 @@ old_sha512hash="${sha512sums[0]}"
 sed -i "s/${old_version}/${version}/g" PKGBUILD
 sed -i "s/${old_sha512hash}/${sha512hash}/" PKGBUILD
 sed -i "s/pkgrel=.*/pkgrel=1/" PKGBUILD
-
-makepkg --printsrcinfo > .SRCINFO

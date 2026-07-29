@@ -73,5 +73,3 @@ echo "Checking new BLAKE2 for v3: ${new_source_url}"
 new_b2hash="$(curl -fsSL -- "${new_source_url}" | b2sum | awk '{print $1}')"
 
 sed -i "s/${old_b2hash}/${new_b2hash}/" PKGBUILD
-
-makepkg --printsrcinfo > .SRCINFO
