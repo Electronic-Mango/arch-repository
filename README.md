@@ -78,3 +78,11 @@ A meta-package used for tracking runtime dependencies of [Noctalia v5](https://g
 It isn't actually installed.
 
 The dependencies and version is synchronized via [Noctalia's AUR package](https://aur.archlinux.org/packages/noctalia).
+
+
+### `noctalia-make-meta`
+
+A meta-package used for tracking build dependencies of [Noctalia v5](https://github.com/noctalia-dev/noctalia).
+In addition to dependencies there, `just` is also included for easier building.
+
+The dependencies and version is synchronized via [Noctalia's AUR package](https://aur.archlinux.org/packages/noctalia).
