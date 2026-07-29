@@ -57,12 +57,17 @@ jobs:
       - name: Run update script
         run: |
           bash "${{ matrix.script_path }}" ./packages/
-        
+
+      - name: Verify sources
+        run: |
+          cd "packages/${{ matrix.package_name }}"
+          makepkg --verifysource
+
       - name: Update .SRCINFO
         run: |
           cd "packages/${{ matrix.package_name }}"
           makepkg --printsrcinfo > .SRCINFO
-      
+
       - name: Get new version
         id: version
         run: |
