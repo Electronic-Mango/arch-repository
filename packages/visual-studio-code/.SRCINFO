@@ -30,7 +30,7 @@ pkgbase = visual-studio-code
 	options = !strip
 	source = code.desktop
 	sha256sums = 8ff7386e99e55dcaff69c93baa655d9d75d54a68d116aece3b0d6b22457233e5
-	source_x86_64 = "visual-studio-code-1.131.0.tar.gz::https://update.code.visualstudio.com/1.129.1/linux-x64/stable
+	source_x86_64 = visual-studio-code-1.131.0.tar.gz::https://update.code.visualstudio.com/1.131.0/linux-x64/stable
 	sha256sums_x86_64 = 8632e6f9aed7a2c5612475559ff3d18c661d35432c226506db70444a99845731
 
 pkgname = visual-studio-code
