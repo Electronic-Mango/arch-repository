@@ -13,6 +13,7 @@ depends=(
   'pkgconf'
   'stb'
   'wayland-protocols'
+  'just'
 )
 
 package() {

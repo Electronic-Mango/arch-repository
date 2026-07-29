@@ -11,5 +11,6 @@ pkgbase = noctalia-make-meta
 	depends = pkgconf
 	depends = stb
 	depends = wayland-protocols
+	depends = just
 
 pkgname = noctalia-make-meta
