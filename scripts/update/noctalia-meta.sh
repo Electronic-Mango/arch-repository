@@ -26,8 +26,6 @@ version=$(grep -Po "pkgver=\K.+" "${aur_pkgbuild}")
 release=$(grep -Po "pkgrel=\K.+" "${aur_pkgbuild}")
 sed -i "s/^pkgver=.*/pkgver=${version}/" PKGBUILD
 sed -i "s/^pkgrel=.*/pkgrel=${release}/" PKGBUILD
-sed -i "s/pkgver = .*/pkgver = ${version}/" .SRCINFO
-sed -i "s/pkgrel = .*/pkgrel = ${release}/" .SRCINFO
 
 # Update dependencies
 awk '
@@ -54,3 +52,6 @@ skip {
 
 { print }
 ' "${aur_pkgbuild}" PKGBUILD | sponge PKGBUILD
+
+# Update .SRCINFO
+makepkg --printsrcinfo > .SRCINFO
