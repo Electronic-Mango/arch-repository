@@ -59,15 +59,14 @@ jobs:
           bash "${{ matrix.script_path }}" ./packages/
         
       - name: Update .SRCINFO
-        working-directory: "packages/${{ matrix.package_name }}"
         run: |
+          cd "packages/${{ matrix.package_name }}"
           makepkg --printsrcinfo > .SRCINFO
       
       - name: Get new version
         id: version
-        working-directory: "packages/${{ matrix.package_name }}"
         run: |
-          source "PKGBUILD"
+          source "packages/${{ matrix.package_name }}/PKGBUILD"
           echo "pkgver=${pkgver}" >> "${GITHUB_OUTPUT}"
 
       - name: Create pull request
