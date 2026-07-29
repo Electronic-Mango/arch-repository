@@ -48,6 +48,11 @@ skip {
 { print }
 ' "${aur_pkgbuild}" PKGBUILD | sponge PKGBUILD
 
+if git diff --quiet PKGBUILD; then
+    echo "No changes to dependencies, skipping version bump."
+    exit 0
+fi
+
 # Update versions
 version=$(grep -Po "pkgver=\K.+" "${aur_pkgbuild}")
 release=$(grep -Po "pkgrel=\K.+" "${aur_pkgbuild}")
