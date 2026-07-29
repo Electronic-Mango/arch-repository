@@ -33,7 +33,4 @@ sed -i "s/${old_version}/${version}/g" PKGBUILD
 sed -i "s/${old_sha512hash}/${sha512hash}/" PKGBUILD
 sed -i "s/pkgrel=.*/pkgrel=1/" PKGBUILD
 
-sed -i "s/${old_version}/${version}/g" .SRCINFO
-sed -i "s/${old_sha512hash}/${sha512hash}/" .SRCINFO
-sed -i "s/${old_version//-/_}/${version//-/_}/g" .SRCINFO
-sed -i "s/pkgrel = .*/pkgrel = 1/" .SRCINFO
+makepkg --printsrcinfo > .SRCINFO
