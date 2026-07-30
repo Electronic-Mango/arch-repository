@@ -1,6 +1,6 @@
 pkgname=noctalia-meta
 pkgver=5.0.0.r1191.g39a4a335c
-pkgrel=23
+pkgrel=24
 pkgdesc='Metapackage for keeping track of noctalia dependencies'
 arch=(any)
 url='https://github.com/noctalia-dev/noctalia'
@@ -22,6 +22,7 @@ depends=(
   'libqalculate'
   'librsvg'
   'libsecret'
+  'libsndfile'
   'libsodium'
   'libwebp'
   'libwireplumber'
