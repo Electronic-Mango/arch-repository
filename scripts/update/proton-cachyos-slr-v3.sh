@@ -42,19 +42,6 @@ cp -vfr "${tmp_repo_dir}/proton-cachyos-slr/." .
 
 mv proton-cachyos-slr.install proton-cachyos-slr-v3.install
 
-source './PKGBUILD'
-
-download_source_index=0
-old_source_url=""
-for i in "${!source[@]}"; do
-    old_source_url="${source[${i}]}"
-    if [[ "${old_source_url}" == *"proton-cachyos/releases/download"* ]]; then
-        download_source_index="${i}"
-        break
-    fi
-done
-old_b2hash="${b2sums[${download_source_index}]}"
-
 find_rule='/^build()[[:space:]]*{/,/^}/ {
     /^[[:space:]]*cd "\${_package_name}"$/a\
     find -type f -name "*.reg" -exec sed -i '\''s/"LogPixels"=dword:00000060/"LogPixels"=dword:000000c0/'\'' -- {} \\;
@@ -66,10 +53,4 @@ sed -i \
     -e "${find_rule}" \
     PKGBUILD
 
-source './PKGBUILD'
-
-new_source_url="${source[${download_source_index}]}"
-echo "Checking new BLAKE2 for v3: ${new_source_url}"
-new_b2hash="$(curl -fsSL -- "${new_source_url}" | b2sum | awk '{print $1}')"
-
-sed -i "s/${old_b2hash}/${new_b2hash}/" PKGBUILD
+SRCDEST="$(mktemp -d)" updpkgsums
