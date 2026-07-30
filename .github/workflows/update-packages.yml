@@ -61,7 +61,7 @@ jobs:
       - name: Verify sources
         run: |
           cd "packages/${{ matrix.package_name }}"
-          makepkg --verifysource
+          SRCDEST="$(mktemp -d)" makepkg --verifysource
 
       - name: Update .SRCINFO
         run: |
