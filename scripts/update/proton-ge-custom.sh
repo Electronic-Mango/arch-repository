@@ -25,10 +25,6 @@ fi
 sha_url=$(echo "${api_response}" | jq -r --arg name "${version}.sha512sum" '.assets[] | select(.name == $name) | .browser_download_url')
 sha512hash=$(curl -sL --max-time 10 "${sha_url}" | awk '{print $1}')
 
-source PKGBUILD
-old_version="${_pkgver}"
-old_sha512hash="${sha512sums[0]}"
-
-sed -i "s/${old_version}/${version}/g" PKGBUILD
-sed -i "s/${old_sha512hash}/${sha512hash}/" PKGBUILD
+sed -i "s/_pkgver=.*/_pkgver=${version}/" PKGBUILD
+sed -i "s/^sha512sums_x86_64=.*/sha512sums_x86_64=('${sha512hash}')/" PKGBUILD
 sed -i "s/pkgrel=.*/pkgrel=1/" PKGBUILD
