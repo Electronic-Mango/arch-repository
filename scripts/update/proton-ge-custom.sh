@@ -22,7 +22,7 @@ if grep -q "_pkgver=${version}" PKGBUILD; then
     exit 0
 fi
 
-sha_url=$(echo "${api_response}" | jq -r --arg name "${version}.sha512sum" '.assets[] | select(.name == $name) | .browser_download_url')
+sha_url=$(echo "${api_response}" | jq -r --arg name "${version}-x86_64.sha512sum" '.assets[] | select(.name == $name) | .browser_download_url')
 sha512hash=$(curl -sL --max-time 10 "${sha_url}" | awk '{print $1}')
 
 sed -i "s/_pkgver=.*/_pkgver=${version}/" PKGBUILD
