@@ -1,4 +1,4 @@
-pkgbase = xwayland-satellite-git-cursor-scaling-fix
+pkgbase = xwayland-satellite-cursor-scaling-fix
 	pkgdesc = Xwayland outside your Wayland (with cursor scaling fix)
 	pkgver = 0.8.2.r1.g3bc915f
 	pkgrel = 1
@@ -23,4 +23,4 @@ pkgbase = xwayland-satellite-git-cursor-scaling-fix
 	sha512sums = SKIP
 	b2sums = SKIP
 
-pkgname = xwayland-satellite-git-cursor-scaling-fix
+pkgname = xwayland-satellite-cursor-scaling-fix
