@@ -1,8 +1,8 @@
 # Maintainer: Electronic-Mango <78230210+Electronic-Mango@users.noreply.github.com>
 
 _pkgname='xwayland-satellite'
-pkgname="${_pkgname}-git-cursor-scaling-fix"
-pkgver=0.8.2
+pkgname="${_pkgname}-cursor-scaling-fix"
+pkgver=0.8.2.r1.g3bc915f
 pkgrel=1
 pkgdesc="Xwayland outside your Wayland (with cursor scaling fix)"
 arch=(x86_64)
