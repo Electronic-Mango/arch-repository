@@ -9,7 +9,7 @@ if [[ ! -d "${packages_dir}" ]]; then
     exit 1
 fi
 
-package_name="xwayland-satellite-git-cursor-scaling-fix"
+package_name="xwayland-satellite-cursor-scaling-fix"
 
 tmp_repo_dir="$(mktemp -d)"
 pushd "${tmp_repo_dir}"
