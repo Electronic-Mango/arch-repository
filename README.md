@@ -72,6 +72,13 @@ Similar changes as the CachyOS one:
 Additionally, similarly to CachyOS version, this package enables ntsync through a kernel module.
 
 
+### `noctalia`
+
+"Full" Noctalia package, synchronized with Arch package: [`noctalia`](https://gitlab.archlinux.org/archlinux/packaging/packages/noctalia).
+
+Provided as pre-built package.
+
+
 ### `noctalia-meta`
 
 A meta-package used for tracking runtime dependencies of [Noctalia v5](https://github.com/noctalia-dev/noctalia).
