@@ -28,9 +28,9 @@ if [[ $(tail -n 1 PKGBUILD) != "" ]]; then
 fi
 
 if ! grep -q "^provides=" PKGBUILD; then
-    echo 'provides=('noctalia')' >> PKGBUILD
+    echo "provides=('noctalia')" >> PKGBUILD
 fi
 
 if ! grep -q "^conflicts=" PKGBUILD; then
-    echo 'conflicts=('noctalia' 'noctalia-bin' 'noctalia-git' 'noctalia-shell' 'noctalia-meta')' >> PKGBUILD
+    echo "conflicts=('noctalia' 'noctalia-bin' 'noctalia-git' 'noctalia-shell' 'noctalia-meta')" >> PKGBUILD
 fi
