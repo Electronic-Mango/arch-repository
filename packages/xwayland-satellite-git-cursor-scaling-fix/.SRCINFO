@@ -1,0 +1,26 @@
+pkgbase = xwayland-satellite-git-cursor-scaling-fix
+	pkgdesc = Xwayland outside your Wayland (with cursor scaling fix)
+	pkgver = 0.8.2.r1.g3bc915f
+	pkgrel = 1
+	url = https://github.com/Supreeeme/xwayland-satellite
+	arch = x86_64
+	license = MPL-2.0
+	makedepends = git
+	makedepends = clang
+	makedepends = rust
+	depends = glibc
+	depends = libgcc
+	depends = libxcb
+	depends = xcb-util-cursor
+	depends = xorg-xwayland
+	provides = xwayland-satellite
+	conflicts = xwayland-satellite
+	conflicts = xwayland-satellite-git
+	options = strip
+	options = !debug
+	options = lto
+	source = git+https://github.com/Supreeeme/xwayland-satellite.git
+	sha512sums = SKIP
+	b2sums = SKIP
+
+pkgname = xwayland-satellite-git-cursor-scaling-fix
