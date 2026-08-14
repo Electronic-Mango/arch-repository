@@ -78,5 +78,5 @@ package() {
   install -Dm644 "${_pkgname}-${_tagver}/README.md" "${pkgdir}/usr/share/doc/${pkgname}/README.md"
 }
 
-provides=(noctalia)
-conflicts=(noctalia noctalia-bin noctalia-git noctalia-shell noctalia-meta)
+provides=('noctalia')
+conflicts=('noctalia' 'noctalia-bin' 'noctalia-git' 'noctalia-shell' 'noctalia-meta')
