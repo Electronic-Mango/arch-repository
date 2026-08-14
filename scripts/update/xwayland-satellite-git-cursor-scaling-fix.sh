@@ -23,5 +23,5 @@ popd
 
 cd "${packages_dir}/${package_name}"
 shopt -s dotglob
-mv -- "${tmp_repo_dir}"/* .
+cp -a "${tmp_repo_dir}"/. .
 rm -rf "${tmp_repo_dir}"
