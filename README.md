@@ -93,3 +93,11 @@ A meta-package used for tracking build dependencies of [Noctalia v5](https://git
 In addition to dependencies there, `just` is also included for easier building.
 
 The dependencies and version is synchronized via [Noctalia's AUR package](https://aur.archlinux.org/packages/noctalia).
+
+
+### `xwayland-satellite-cursor-scaling-fix`
+
+A "git" version of [`xwayland-satellite`](https://github.com/Supreeeme/xwayland-satellite), with additional changes, like fix for HiDPI cursor scaling.
+The actual base package is: https://github.com/Electronic-Mango/xwayland-satellite-package
+
+Provided as pre-built package.
