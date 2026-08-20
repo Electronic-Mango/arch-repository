@@ -1,7 +1,7 @@
 pkgbase = noctalia
 	pkgdesc = A sleek, customizable desktop shell crafted for Wayland
-	pkgver = 5.0.0_beta.8
-	pkgrel = 1
+	pkgver = 5.0.0_beta.9
+	pkgrel = 2
 	url = https://github.com/noctalia-dev/noctalia
 	arch = x86_64
 	arch = aarch64
@@ -54,7 +54,6 @@ pkgbase = noctalia
 	conflicts = noctalia-git
 	conflicts = noctalia-shell
 	conflicts = noctalia-meta
-	options = !debug
 	source = noctalia-5.0.0-beta.8.tar.gz::https://github.com/noctalia-dev/noctalia/archive/refs/tags/v5.0.0-beta.8.tar.gz
 	sha256sums = a60e4ab8723f428e11b9a2bac97811aaa6a494648730abc61025c35cb728539e
 
