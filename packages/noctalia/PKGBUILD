@@ -4,13 +4,12 @@
 _pkgname=noctalia
 _tagver=5.0.0-beta.8
 pkgname=noctalia
-pkgver=5.0.0_beta.8
-pkgrel=1
+pkgver=5.0.0_beta.9
+pkgrel=2
 pkgdesc='A sleek, customizable desktop shell crafted for Wayland'
 arch=('x86_64' 'aarch64')
 url='https://github.com/noctalia-dev/noctalia'
 license=('MIT')
-options=('!debug')
 depends=(
   'bash'
   'cairo'
