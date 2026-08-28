@@ -1,7 +1,7 @@
 # Maintainer: Electronic-Mango <78230210+Electronic-Mango@users.noreply.github.com>
 
 pkgname=proton-ge-custom
-_pkgver=GE-Proton11-5
+_pkgver=GE-Proton11-6
 pkgver=${_pkgver//-/_}
 pkgrel=1
 epoch=1
@@ -20,7 +20,7 @@ backup=("usr/share/steam/compatibilitytools.d/${pkgname}/user_settings.py")
 source=("ntsync.conf")
 source_x86_64=(${_pkgver}_${pkgrel}.tar.gz::${url}/releases/download/${_pkgver}/${_pkgver}-x86_64.tar.gz)
 sha512sums=('ac2bd634838ffe6b90f2637e229013f0993fc1013271dbeefd216dc262a8bb79e4a5ce15a75cbfcb0c3b521d32f4ebe1ed25a6b066b99cc327b60bd6d7212e6f')
-sha512sums_x86_64=('8fb1f3ae65a8dc22efd8099ff489075f0eebddf01c445b423244589f6f0a1e19c01de5d1e722b97fc1ebaf6390c813052ed55290058f8d21f1353a36146f4a2c')
+sha512sums_x86_64=('543e3af57bb138b1be5a5b98bba4d39ca59340bfa34ec8c12144f3e16d7434ed75bd7a68eafc228b16695884629595af0905156e5227c1898f93cdbc92cb5fcb')
 
 _unpacked="${_pkgver}-x86_64"
 
