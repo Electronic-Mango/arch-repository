@@ -3,7 +3,7 @@ name: Update Packages
 on:
   workflow_dispatch:
   schedule:
-    - cron: '35 5 * * *'
+    - cron: '8/15 * * * *'
   push:
     branches:
       - main
