@@ -1,6 +1,0 @@
-[noctalia]
-source = "git"
-git = "https://github.com/noctalia-dev/noctalia.git"
-prefix = "v"
-from_pattern = "-"
-to_pattern = "_"
