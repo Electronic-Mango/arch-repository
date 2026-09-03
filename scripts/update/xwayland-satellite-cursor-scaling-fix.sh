@@ -19,7 +19,7 @@ git fetch --all
 git rebase upstream/main
 makepkg --nobuild --nodeps --noprepare
 git clean -ffxd
-sed 's/-C target-cpu=znver4 //' PKGBUILD
+sed -i 's/-C target-cpu=znver4 //' PKGBUILD
 popd
 
 cd "${packages_dir}/${package_name}"
