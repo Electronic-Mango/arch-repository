@@ -1,6 +1,6 @@
 pkgbase = xwayland-satellite-cursor-scaling-fix
 	pkgdesc = Xwayland outside your Wayland (with cursor scaling fix)
-	pkgver = 0.8.2.r9.g78e4e01
+	pkgver = 0.8.2.r10.gea474b9
 	pkgrel = 1
 	url = https://github.com/Supreeeme/xwayland-satellite
 	arch = x86_64
