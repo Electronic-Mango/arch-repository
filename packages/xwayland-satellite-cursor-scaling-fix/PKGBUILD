@@ -38,7 +38,7 @@ prepare() {
   cd "${_pkgname}"
   git config user.name "local"
   git config user.email "<>"
-  git pull origin pull/423/head --no-ff --no-commit
+  git pull origin pull/490/head --no-ff --no-commit
   sed 's|/usr/local|/usr|' -i "resources/${_pkgname}.service"
   export CARGO_HOME="${srcdir}/.cargo"
   cargo fetch --locked --target "$(rustc --print host-tuple)"
