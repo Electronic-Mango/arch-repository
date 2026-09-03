@@ -47,7 +47,7 @@ prepare() {
 build() {
   cd "${_pkgname}"
   export CARGO_HOME="${srcdir}/.cargo"
-  export RUSTFLAGS="--remap-path-prefix=$srcdir=/"
+  export RUSTFLAGS="-C target-cpu=znver4 --remap-path-prefix=$srcdir=/"
   cargo build --frozen --release --features systemd
 }
 
