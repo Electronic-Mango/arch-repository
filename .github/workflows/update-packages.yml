@@ -15,6 +15,10 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: update-packages
+  cancel-in-progress: false
+
 jobs:
   discover:
     name: Discover update scripts
