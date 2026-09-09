@@ -2,7 +2,7 @@
 
 _pkgname='xwayland-satellite'
 pkgname="${_pkgname}-cursor-scaling-fix"
-pkgver=0.8.2.r12.g324ef5d
+pkgver=0.8.2.r13.gadd2795
 pkgrel=1
 pkgdesc="Xwayland outside your Wayland (with cursor scaling fix)"
 arch=(x86_64)
