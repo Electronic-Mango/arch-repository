@@ -14,7 +14,11 @@ updates_api_url="https://api.github.com/repos/GloriousEggroll/${package_name}/re
 
 cd "${packages_dir}/${package_name}"
 
-api_response=$(curl -sL --max-time 10 "${updates_api_url}")
+auth_header=()
+if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+    auth_header=("-H" "Authorization: Bearer ${GITHUB_TOKEN}")
+fi
+api_response=$(curl -sL --max-time 10 "${auth_header[@]}" "${updates_api_url}")
 version=$(echo "${api_response}" | jq -r '.tag_name')
 
 if grep -q "_pkgver=${version}" PKGBUILD; then
@@ -23,7 +27,7 @@ if grep -q "_pkgver=${version}" PKGBUILD; then
 fi
 
 sha_url=$(echo "${api_response}" | jq -r --arg name "${version}-x86_64.sha512sum" '.assets[] | select(.name == $name) | .browser_download_url')
-sha512hash=$(curl -sL --max-time 10 "${sha_url}" | awk '{print $1}')
+sha512hash=$(curl -sL --max-time 10 "${auth_header[@]}" "${sha_url}" | awk '{print $1}')
 
 sed -i "s/_pkgver=.*/_pkgver=${version}/" PKGBUILD
 sed -i "s/^sha512sums_x86_64=.*/sha512sums_x86_64=('${sha512hash}')/" PKGBUILD
