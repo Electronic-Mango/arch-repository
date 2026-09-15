@@ -19,6 +19,10 @@ if [[ -n "${GITHUB_TOKEN:-}" ]]; then
     auth_header=("-H" "Authorization: Bearer ${GITHUB_TOKEN}")
 fi
 api_response=$(curl -sL --max-time 10 "${auth_header[@]}" "${updates_api_url}")
+if [[ "$(echo "${api_response}" | jq -r '.message // empty')" != "" ]]; then
+    echo "GitHub API request failed: $(echo "${api_response}" | jq -r '.message')" >&2
+    exit 1
+fi
 version=$(echo "${api_response}" | jq -r '.tag_name')
 
 if grep -q "_pkgver=${version}" PKGBUILD; then
