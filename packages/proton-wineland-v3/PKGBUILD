@@ -1,0 +1,36 @@
+# Maintainer: Electronic-Mango <78230210+Electronic-Mango@users.noreply.github.com>
+
+pkgname=proton-wineland-v3
+_pkgver=11.0-20260922
+pkgver=${_pkgver//-/_}
+pkgrel=1
+epoch=1
+
+pkgdesc="Compatibility tool for Steam Play based on Wine with Wayland improvements and additional components"
+url="https://github.com/nanomatters/proton-cachyos"
+arch=(x86_64)
+options=(!strip emptydirs)
+license=('BSD' 'LGPL' 'zlib' 'MIT' 'MPL' 'custom')
+makedepends=(rsync)
+provides=('proton-wineland-v3' 'proton')
+backup=("usr/share/steam/compatibilitytools.d/${pkgname}/user_settings.py")
+
+source_x86_64=(${_pkgver}_${pkgrel}.tar.gz::${url}/releases/download/${_pkgver}/${_pkgver}-x86_64_v3.tar.xz)
+sha512sums_x86_64=('050e3f8cef201e1fb2ef6902f768e066febcc10973cd62e97d5ab1f633b8b50119c7049f68f7fb9fbbfbbf454d671d6861ab167a0a4a67c260ce8ae2758f9dec')
+
+_unpacked="${_pkgver}-x86_64"
+
+build() {
+    # find -type f -name "*.reg" -exec sed -i 's/"LogPixels"=dword:00000060/"LogPixels"=dword:000000c0/' -- {} \;
+    sed -i 's/"display_name" "proton-wineland-/"display_name" "Proton Wineland /' "${_unpacked}"/compatibilitytool.vdf
+}
+
+package() {
+    local _compatdir="${pkgdir}/usr/share/steam/compatibilitytools.d"
+    mkdir -p "${_compatdir}/${pkgname}"
+    rsync --delete -arx "${_unpacked}"/* "${_compatdir}/${pkgname}"
+
+    mkdir -p "${pkgdir}/usr/share/licenses/${pkgname}"
+    mv "${_compatdir}/${pkgname}"/{PATENTS.AV1,LICENSE{,.OFL}} \
+        "${pkgdir}/usr/share/licenses/${pkgname}"
+}
