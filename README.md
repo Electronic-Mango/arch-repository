@@ -72,6 +72,16 @@ Similar changes as the CachyOS one:
 Additionally, similarly to CachyOS version, this package enables ntsync through a kernel module.
 
 
+### `proton-wineland-v3`
+
+Official release of [Proton Wineland](https://github.com/nanomatters/proton-cachyos) (`x86_64_v3` variant).
+
+The only change from the release is display name changed to `Proton Wineland <version>`.
+DPI is currently not changed, Proton Wineland has its own system of scaling the cursor.
+
+No ntsync module installed with this one.
+
+
 ### `noctalia`
 
 "Full" Noctalia package, synchronized with Arch package: [`noctalia`](https://gitlab.archlinux.org/archlinux/packaging/packages/noctalia).
