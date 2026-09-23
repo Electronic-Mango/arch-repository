@@ -82,13 +82,6 @@ DPI is currently not changed, Proton Wineland has its own system of scaling the 
 No ntsync module installed with this one.
 
 
-### `noctalia`
-
-"Full" Noctalia package, synchronized with Arch package: [`noctalia`](https://gitlab.archlinux.org/archlinux/packaging/packages/noctalia).
-
-Provided as pre-built package.
-
-
 ### `noctalia-meta`
 
 A meta-package used for tracking runtime dependencies of [Noctalia v5](https://github.com/noctalia-dev/noctalia).
