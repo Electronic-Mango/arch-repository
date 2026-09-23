@@ -18,7 +18,7 @@ backup=("usr/share/steam/compatibilitytools.d/${pkgname}/user_settings.py")
 source_x86_64=(${_pkgver}_${pkgrel}.tar.gz::${url}/releases/download/wineland-${_pkgver}/proton-wineland-${_pkgver}-x86_64_v3.tar.xz)
 sha512sums_x86_64=('050e3f8cef201e1fb2ef6902f768e066febcc10973cd62e97d5ab1f633b8b50119c7049f68f7fb9fbbfbbf454d671d6861ab167a0a4a67c260ce8ae2758f9dec')
 
-_unpacked="${_pkgver}-x86_64"
+_unpacked="proton-wineland-${_pkgver}-x86_64_v3"
 
 build() {
     # find -type f -name "*.reg" -exec sed -i 's/"LogPixels"=dword:00000060/"LogPixels"=dword:000000c0/' -- {} \;
