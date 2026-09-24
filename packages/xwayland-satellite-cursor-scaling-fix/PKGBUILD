@@ -2,7 +2,7 @@
 
 _pkgname='xwayland-satellite'
 pkgname="${_pkgname}-cursor-scaling-fix"
-pkgver=0.8.2.r13.gadd2795
+pkgver=0.8.3.r0.gb83eab9
 pkgrel=1
 pkgdesc="Xwayland outside your Wayland (with cursor scaling fix)"
 arch=(x86_64)
@@ -31,7 +31,7 @@ b2sums=(SKIP)
 
 pkgver() {
   cd ${_pkgname}
-  git describe --long --abbrev=7 | sed -e 's/^v//' -e 's/\([^-]*-g\)/r\1/' -e 's/-/./g'
+  git describe --tags --long --abbrev=7 | sed -e 's/^v//' -e 's/\([^-]*-g\)/r\1/' -e 's/-/./g'
 }
 
 prepare() {
