@@ -1,9 +1,9 @@
 # Maintainer: Electronic-Mango <78230210+Electronic-Mango@users.noreply.github.com>
 
 pkgname=proton-wineland-v3
-_pkgver=11.0-20260922
+_pkgver=11.0-20260928.1
 pkgver=${_pkgver//-/_}
-pkgrel=2
+pkgrel=1
 epoch=1
 
 pkgdesc="Compatibility tool for Steam Play based on Wine with Wayland improvements and additional components"
@@ -16,7 +16,7 @@ provides=('proton-wineland-v3' 'proton')
 backup=("usr/share/steam/compatibilitytools.d/${pkgname}/user_settings.py")
 
 source_x86_64=(${_pkgver}_${pkgrel}.tar.gz::${url}/releases/download/wineland-${_pkgver}/proton-wineland-${_pkgver}-x86_64_v3.tar.xz)
-sha512sums_x86_64=('050e3f8cef201e1fb2ef6902f768e066febcc10973cd62e97d5ab1f633b8b50119c7049f68f7fb9fbbfbbf454d671d6861ab167a0a4a67c260ce8ae2758f9dec')
+sha512sums_x86_64=('7c9efa33a71055bdb07cdda8ed12a120e2d842c2c224b189d3e360952d377ed085e5e2a4c56e42b542d4273d81dd8189497dbbb8aa4b6110cfe6dfaf4618fcf5')
 
 _unpacked="proton-wineland-${_pkgver}-x86_64_v3"
 
