@@ -1,4 +1,4 @@
-FROM archlinux:base-devel
+FROM cachyos/cachyos:latest
 
 # Enable multilib repository
 RUN printf "%s\n%s" '[multilib]' 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
