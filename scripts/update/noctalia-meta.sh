@@ -13,17 +13,17 @@ package_name="noctalia-meta"
 
 cd "${packages_dir}/${package_name}"
 
-# Download PKGBUILD from AUR
-aur_pkgbuild_url="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=noctalia-git"
-aur_pkgbuild="$(mktemp)"
-if ! wget -O "${aur_pkgbuild}" -- "${aur_pkgbuild_url}"; then
-    echo "Failed to download noctalia-git PKGBUILD from AUR, skipping."
+# Download PKGBUILD from the official repository
+official_pkgbuild_url="https://gitlab.archlinux.org/archlinux/packaging/packages/noctalia/-/raw/main/PKGBUILD?inline=false"
+official_pkgbuild="$(mktemp)"
+if ! wget -O "${official_pkgbuild}" -- "${official_pkgbuild_url}"; then
+    echo "Failed to download noctalia PKGBUILD, skipping."
     exit 0
 fi
 
 # Update versions
-version=$(grep -Po "pkgver=\K.+" "${aur_pkgbuild}")
-release=$(grep -Po "pkgrel=\K.+" "${aur_pkgbuild}")
+version=$(grep -Po "pkgver=\K.+" "${official_pkgbuild}")
+release=$(grep -Po "pkgrel=\K.+" "${official_pkgbuild}")
 sed -i "s/^pkgver=.*/pkgver=${version}/" PKGBUILD
 sed -i "s/^pkgrel=.*/pkgrel=${release}/" PKGBUILD
 
@@ -51,4 +51,4 @@ skip {
 }
 
 { print }
-' "${aur_pkgbuild}" PKGBUILD | sponge PKGBUILD
+' "${official_pkgbuild}" PKGBUILD | sponge PKGBUILD
