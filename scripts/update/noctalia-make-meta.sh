@@ -35,6 +35,7 @@ FNR==NR {
 
 /^depends=\(/ {
     if (block !~ q "just" q) sub(/\n\)[[:space:]]*$/, "\n  " q "just" q "\n)", block)
+    if (block !~ q "noctalia-meta" q) sub(/\n\)[[:space:]]*$/, "\n  " q "noctalia-meta" q "\n)", block)
     sub(/^makedepends=/, "depends=", block)
     printf "%s\n", block
     skip=1
@@ -48,7 +49,6 @@ skip {
 
 { print }
 ' "${aur_pkgbuild}" PKGBUILD | sponge PKGBUILD
-sed -i "s/^depends=($/depends=(\n  'noctalia-meta'/" PKGBUILD
 
 if git diff --quiet PKGBUILD; then
     echo "No changes to dependencies, skipping version bump."
