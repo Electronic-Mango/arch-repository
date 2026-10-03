@@ -48,7 +48,7 @@ skip {
 }
 
 { print }
-|' "${official_pkgbuild}" PKGBUILD | sponge PKGBUILD
+' "${official_pkgbuild}" PKGBUILD | sponge PKGBUILD
 
 if git diff --quiet PKGBUILD; then
     echo "No changes to dependencies, skipping version bump."
