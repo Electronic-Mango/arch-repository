@@ -17,7 +17,7 @@ cd "${packages_dir}/${package_name}"
 official_pkgbuild_url="https://raw.githubusercontent.com/CachyOS/CachyOS-PKGBUILDS/refs/heads/master/umbriel/umbriel/PKGBUILD"
 official_pkgbuild="$(mktemp)"
 if ! wget -O "${official_pkgbuild}" -- "${official_pkgbuild_url}"; then
-    echo "Failed to download umbriel PKGBUILD, skipping."
+    echo "Failed to download umbriel PKGBUILD from the official repository, skipping."
     exit 0
 fi
 
