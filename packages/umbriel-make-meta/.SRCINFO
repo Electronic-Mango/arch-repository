@@ -5,7 +5,6 @@ pkgbase = umbriel-make-meta
 	url = https://github.com/noctalia-dev/umbriel
 	arch = any
 	license = MIT
-	depends = umbriel-meta
 	depends = git
 	depends = meson
 	depends = ninja
@@ -13,5 +12,6 @@ pkgbase = umbriel-make-meta
 	depends = pkgconf
 	depends = wayland-protocols
 	depends = just
+	depends = umbriel-meta
 
 pkgname = umbriel-make-meta
