@@ -98,7 +98,8 @@ The dependencies and version is synchronized via [official Noctalia package](htt
 A meta-package used for tracking build dependencies of [Noctalia v5](https://github.com/noctalia-dev/noctalia).
 In addition to dependencies there, `just` is also included for easier building.
 
-The dependencies and version is synchronized via [Noctalia's AUR package](https://aur.archlinux.org/packages/noctalia).
+The dependencies and version is synchronized via [official Noctalia package](https://gitlab.archlinux.org/archlinux/packaging/packages/noctalia).
+Technically there can be new dependencies between releases, but it reduces dependency on AUR.
 
 
 ### `umbriel-meta`
