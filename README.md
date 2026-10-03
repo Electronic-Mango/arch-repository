@@ -2,7 +2,7 @@
 
 My own, custom software repository for Arch Linux.
 
-Techically it's for CachyOS Linux due to [Umbriel](https://packages.cachyos.org/package/cachyos/x86_64/umbriel) being available there as a package.
+Technically it's for CachyOS Linux due to [Umbriel](https://packages.cachyos.org/package/cachyos/x86_64/umbriel) being available there as a package.
 I'll see whether it can be migrated to regular Arch once that package is in standard Arch repository.
 
 The repository is hosted as a [GitHub Release](https://github.com/Electronic-Mango/arch-repository/releases/tag/repo-latest).
