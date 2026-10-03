@@ -1,10 +1,11 @@
 pkgbase = noctalia-make-meta
 	pkgdesc = Metapackage for keeping track of noctalia build dependencies
 	pkgver = 5.0.0.r1191.g39a4a335c
-	pkgrel = 23
+	pkgrel = 25
 	url = https://github.com/noctalia-dev/noctalia
 	arch = any
 	license = MIT
+	depends = noctalia-meta
 	depends = meson
 	depends = ninja
 	depends = nlohmann-json
