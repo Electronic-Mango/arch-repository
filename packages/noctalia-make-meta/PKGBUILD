@@ -7,7 +7,6 @@ url='https://github.com/noctalia-dev/noctalia'
 license=('MIT')
 
 depends=(
-  'noctalia-meta'
   'meson'
   'ninja'
   'nlohmann-json'
