@@ -1,0 +1,21 @@
+pkgname=umbriel-make-meta
+pkgver=5.0.0.r1191.g39a4a335c
+pkgrel=23
+pkgdesc='Metapackage for keeping track of umbriel build dependencies'
+arch=(any)
+url='https://github.com/noctalia-dev/umbriel'
+license=('MIT')
+
+depends=(
+  'git'
+  'meson'
+  'ninja'
+  'nlohmann-json'
+  'pkgconf'
+  'wayland-protocols'
+  'just'
+)
+
+package() {
+  :
+}
