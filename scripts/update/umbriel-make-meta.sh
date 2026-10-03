@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+packages_dir="${1:-}"
+
+if [[ ! -d "${packages_dir}" ]]; then
+    echo "Packages directory not found: ${packages_dir}" >&2
+    exit 1
+fi
+
+package_name="umbriel-make-meta"
+
+cd "${packages_dir}/${package_name}"
+
+# Download PKGBUILD from the official repository
+aur_pkgbuild_url="https://raw.githubusercontent.com/CachyOS/CachyOS-PKGBUILDS/refs/heads/master/umbriel/umbriel/PKGBUILD"
+aur_pkgbuild="$(mktemp)"
+if ! wget -O "${aur_pkgbuild}" -- "${aur_pkgbuild_url}"; then
+    echo "Failed to download umbriel PKGBUILD from the official repository, skipping."
+    exit 0
+fi
+
+# Update dependencies
+awk -v q="'" '
+FNR==NR {
+    if (/^makedepends=\(/) inside=1
+    if (inside) {
+        if (block != "") block = block ORS
+        block = block $0
+    }
+    if (inside && /\)[[:space:]]*$/) inside=0
+    next
+}
+
+/^depends=\(/ {
+    if (block !~ q "just" q) sub(/\n\)[[:space:]]*$/, "\n  " q "just" q "\n)", block)
+    sub(/^makedepends=/, "depends=", block)
+    printf "%s\n", block
+    skip=1
+    next
+}
+
+skip {
+    if (/\)[[:space:]]*$/) skip=0
+    next
+}
+
+{ print }
+' "${aur_pkgbuild}" PKGBUILD | sponge PKGBUILD
+sed -i "s/^depends=($/depends=(\n  'umbriel-meta'/" PKGBUILD
+
+if git diff --quiet PKGBUILD; then
+    echo "No changes to dependencies, skipping version bump."
+    exit 0
+fi
+
+# Update versions
+version=$(grep -Po "pkgver=\K.+" "${aur_pkgbuild}")
+release=$(grep -Po "pkgrel=\K.+" "${aur_pkgbuild}")
+sed -i "s/^pkgver=.*/pkgver=${version}/" PKGBUILD
+sed -i "s/^pkgrel=.*/pkgrel=${release}/" PKGBUILD
