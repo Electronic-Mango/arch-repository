@@ -1,21 +1,24 @@
 pkgname=noctalia-meta
-pkgver=5.0.0.r1191.g39a4a335c
-pkgrel=25
+pkgver=5.2.1
+pkgrel=1
 pkgdesc='Metapackage for keeping track of noctalia dependencies'
 arch=(any)
 url='https://github.com/noctalia-dev/noctalia'
 license=('MIT')
 
 depends=(
+  'bash'
   'cairo'
   'curl'
   'fontconfig'
   'freetype2'
-  'gcc-libs'
   'git'
   'glib2'
   'glibc'
+  'harfbuzz'
+  'hicolor-icon-theme'
   'jemalloc'
+  'libgcc'
   'libglvnd'
   'libical'
   'libjxl'
@@ -25,6 +28,7 @@ depends=(
   'libsecret'
   'libsndfile'
   'libsodium'
+  'libstdc++'
   'libwebp'
   'libwireplumber'
   'libxkbcommon'
