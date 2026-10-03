@@ -1,12 +1,13 @@
 pkgname=umbriel-make-meta
-pkgver=5.0.0.r1191.g39a4a335c
-pkgrel=23
+pkgver=0.1.0.r0.0
+pkgrel=1
 pkgdesc='Metapackage for keeping track of umbriel build dependencies'
 arch=(any)
 url='https://github.com/noctalia-dev/umbriel'
 license=('MIT')
 
 depends=(
+  'umbriel-meta'
   'git'
   'meson'
   'ninja'

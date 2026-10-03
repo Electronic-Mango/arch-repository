@@ -1,0 +1,17 @@
+pkgbase = umbriel-make-meta
+	pkgdesc = Metapackage for keeping track of umbriel build dependencies
+	pkgver = 0.1.0.r0.0
+	pkgrel = 1
+	url = https://github.com/noctalia-dev/umbriel
+	arch = any
+	license = MIT
+	depends = umbriel-meta
+	depends = git
+	depends = meson
+	depends = ninja
+	depends = nlohmann-json
+	depends = pkgconf
+	depends = wayland-protocols
+	depends = just
+
+pkgname = umbriel-make-meta
