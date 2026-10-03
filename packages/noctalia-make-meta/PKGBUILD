@@ -1,6 +1,6 @@
 pkgname=noctalia-make-meta
-pkgver=5.0.0.r1191.g39a4a335c
-pkgrel=25
+pkgver=5.2.1
+pkgrel=1
 pkgdesc='Metapackage for keeping track of noctalia build dependencies'
 arch=(any)
 url='https://github.com/noctalia-dev/noctalia'
@@ -14,6 +14,7 @@ depends=(
   'stb'
   'wayland-protocols'
   'just'
+  'noctalia-meta'
 )
 
 package() {
