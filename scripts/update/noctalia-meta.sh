@@ -17,7 +17,7 @@ cd "${packages_dir}/${package_name}"
 official_pkgbuild_url="https://gitlab.archlinux.org/archlinux/packaging/packages/noctalia/-/raw/main/PKGBUILD?inline=false"
 official_pkgbuild="$(mktemp)"
 if ! wget -O "${official_pkgbuild}" -- "${official_pkgbuild_url}"; then
-    echo "Failed to download noctalia PKGBUILD, skipping."
+    echo "Failed to download noctalia PKGBUILD from the official repository, skipping."
     exit 0
 fi
 
