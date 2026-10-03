@@ -14,9 +14,9 @@ package_name="umbriel-make-meta"
 cd "${packages_dir}/${package_name}"
 
 # Download PKGBUILD from the official repository
-aur_pkgbuild_url="https://raw.githubusercontent.com/CachyOS/CachyOS-PKGBUILDS/refs/heads/master/umbriel/umbriel/PKGBUILD"
-aur_pkgbuild="$(mktemp)"
-if ! wget -O "${aur_pkgbuild}" -- "${aur_pkgbuild_url}"; then
+official_pkgbuild_url="https://raw.githubusercontent.com/CachyOS/CachyOS-PKGBUILDS/refs/heads/master/umbriel/umbriel/PKGBUILD"
+official_pkgbuild="$(mktemp)"
+if ! wget -O "${official_pkgbuild}" -- "${official_pkgbuild_url}"; then
     echo "Failed to download umbriel PKGBUILD from the official repository, skipping."
     exit 0
 fi
@@ -48,7 +48,7 @@ skip {
 }
 
 { print }
-' "${aur_pkgbuild}" PKGBUILD | sponge PKGBUILD
+' "${official_pkgbuild}" PKGBUILD | sponge PKGBUILD
 
 if git diff --quiet PKGBUILD; then
     echo "No changes to dependencies, skipping version bump."
@@ -56,7 +56,7 @@ if git diff --quiet PKGBUILD; then
 fi
 
 # Update versions
-version=$(grep -Po "pkgver=\K.+" "${aur_pkgbuild}")
-release=$(grep -Po "pkgrel=\K.+" "${aur_pkgbuild}")
+version=$(grep -Po "pkgver=\K.+" "${official_pkgbuild}")
+release=$(grep -Po "pkgrel=\K.+" "${official_pkgbuild}")
 sed -i "s/^pkgver=.*/pkgver=${version}/" PKGBUILD
 sed -i "s/^pkgrel=.*/pkgrel=${release}/" PKGBUILD
