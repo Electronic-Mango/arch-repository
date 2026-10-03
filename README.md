@@ -98,6 +98,14 @@ In addition to dependencies there, `just` is also included for easier building.
 The dependencies and version is synchronized via [Noctalia's AUR package](https://aur.archlinux.org/packages/noctalia).
 
 
+### `umbriel-meta`
+
+A meta-package used for tracking runtime dependencies of [Umbriel](https://github.com/noctalia-dev/umbriel).
+It isn't actually installed.
+
+The dependencies and version is synchronized via [CachyOS Umbriel package](https://github.com/CachyOS/CachyOS-PKGBUILDS/tree/master/umbriel/umbriel).
+
+
 ### `xwayland-satellite-cursor-scaling-fix`
 
 A "git" version of [`xwayland-satellite`](https://github.com/Supreeeme/xwayland-satellite), with additional changes, like fix for HiDPI cursor scaling.
