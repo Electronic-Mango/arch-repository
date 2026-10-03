@@ -1,12 +1,13 @@
 pkgname=noctalia-make-meta
 pkgver=5.0.0.r1191.g39a4a335c
-pkgrel=23
+pkgrel=25
 pkgdesc='Metapackage for keeping track of noctalia build dependencies'
 arch=(any)
 url='https://github.com/noctalia-dev/noctalia'
 license=('MIT')
 
 depends=(
+  'noctalia-meta'
   'meson'
   'ninja'
   'nlohmann-json'
