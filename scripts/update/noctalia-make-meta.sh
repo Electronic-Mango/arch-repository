@@ -48,6 +48,7 @@ skip {
 
 { print }
 ' "${aur_pkgbuild}" PKGBUILD | sponge PKGBUILD
+sed -i "s/^depends=($/depends=(\n  'noctalia-meta'/" PKGBUILD
 
 if git diff --quiet PKGBUILD; then
     echo "No changes to dependencies, skipping version bump."
