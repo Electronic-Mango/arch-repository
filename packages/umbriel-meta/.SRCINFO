@@ -1,0 +1,28 @@
+pkgbase = umbriel-meta
+	pkgdesc = Metapackage for keeping track of umbriel dependencies
+	pkgver = 0.1.0.r0.0
+	pkgrel = 1
+	url = https://github.com/noctalia-dev/umbriel
+	arch = any
+	license = MIT
+	depends = cairo
+	depends = gcc-libs
+	depends = glibc
+	depends = jemalloc
+	depends = lcms2
+	depends = libdrm
+	depends = libglvnd
+	depends = libinput
+	depends = libxkbcommon
+	depends = mesa
+	depends = pango
+	depends = pixman
+	depends = systemd-libs
+	depends = tomlplusplus
+	depends = wayland
+	depends = xdg-desktop-portal-umbriel
+	depends = wlroots0.20>=0.20.1
+	conflicts = umbriel
+	conflicts = umbriel-git
+
+pkgname = umbriel-meta
