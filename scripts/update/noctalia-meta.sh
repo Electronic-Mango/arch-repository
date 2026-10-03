@@ -14,7 +14,7 @@ package_name="noctalia-meta"
 cd "${packages_dir}/${package_name}"
 
 # Download PKGBUILD from the official repository
-official_pkgbuild_url="https://gitlab.archlinux.org/archlinux/packaging/packages/noctalia/-/raw/main/PKGBUILD?inline=false"
+official_pkgbuild_url="https://gitlab.archlinux.org/archlinux/packaging/packages/noctalia/-/raw/main/PKGBUILD?ref_type=heads"
 official_pkgbuild="$(mktemp)"
 if ! wget -O "${official_pkgbuild}" -- "${official_pkgbuild_url}"; then
     echo "Failed to download noctalia PKGBUILD from the official repository, skipping."
