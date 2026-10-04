@@ -13,6 +13,13 @@ package_name="proton-cachyos-slr-v3-nightly"
 
 cd "${packages_dir}/${package_name}"
 
+current_date=$(date -u +%F)
+if [[ -f 'updated' && grep -q "${current_date}" updated ]]; then
+    echo 'Already updated today.'
+    exit 0
+fi
+echo "${current_date}" > updated
+
 auth_header=()
 if [[ -n "${GITHUB_TOKEN:-}" ]]; then
     auth_header=("-H" "Authorization: Bearer ${GITHUB_TOKEN}")
@@ -22,7 +29,7 @@ workflow_runs_api_url='https://api.github.com/repos/CachyOS/proton-cachyos/actio
 workflow_runs_api_response=$(curl -sL --max-time 10 "${auth_header[@]}" "${workflow_runs_api_url}")
 workflow_id=$(grep -Po '^      "id": \d+,$' <<< "${workflow_runs_api_response}" | grep -Po '\d+')
 if [[ -z "${workflow_id}" ]]; then
-    echo "Failed to retrieve the latest workflow run ID."
+    echo 'Failed to retrieve the latest workflow run ID.'
     exit 1
 fi
 
