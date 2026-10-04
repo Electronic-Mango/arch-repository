@@ -1,11 +1,10 @@
 # Maintainer: Electronic-Mango <78230210+Electronic-Mango@users.noreply.github.com>
 
 pkgname=proton-cachyos-slr-v3-nightly
-_build_number=198
-_commit_hash=ga6b9f613
-_main_pkgver='11.0-20261001'
-_pkgver="${_main_pkgver}-${_build_number}"
-pkgver=${_pkgver//-/_}
+_build_number=206
+_commit_hash=gd3cb5d84
+_main_pkgver='11.0-20260924'
+pkgver="${_main_pkgver//-/_}_${_build_number}"
 pkgrel=1
 epoch=1
 
@@ -19,10 +18,10 @@ optdepends=(NTSYNC-MODULE)
 provides=('proton-cachyos-nightly')
 backup=("usr/share/steam/compatibilitytools.d/${pkgname}/user_settings.py")
 
-_proton_artifact_id=11263805461
-_checksum_artifact_id=11263695861
-_proton_zip_checksum='f4b0a37d955331756db554ca16658599e238105c8a42afa8156ec9750fa4f827'
-_checksum_zip_checksum='618e47ec6909fced612460b29d5fb90a44f1ece1b01cd4c4e14859c3648428a8'
+_proton_artifact_id=11247510601
+_checksum_artifact_id=11247545594
+_proton_zip_checksum='4f2b7dcb9d17d77ac9663a082b02d5e137c8a10624afdc9299ba95847b8925b8'
+_checksum_zip_checksum='70d902b5d9a33fa87395141b14ae11e14a9d3eab1a9648829c13518997b6d93d'
 source=(
     "proton.zip::https://nightly.link/CachyOS/proton-cachyos/actions/artifacts/${_proton_artifact_id}.zip"
     "checksum.zip::https://nightly.link/CachyOS/proton-cachyos/actions/artifacts/${_checksum_artifact_id}.zip"
