@@ -10,7 +10,7 @@ epoch=1
 
 pkgdesc="A compatibility tool for Steam Play based on Wine and additional components, experimental branch with extra CachyOS flavour (Steam Linux Runtime build)"
 url="https://github.com/CachyOS/proton-cachyos"
-arch=(x86_64_v3)
+arch=(x86_64 x86_64_v3)
 options=(!strip emptydirs)
 license=('BSD' 'LGPL' 'zlib' 'MIT' 'MPL' 'custom')
 makedepends=(rsync)
