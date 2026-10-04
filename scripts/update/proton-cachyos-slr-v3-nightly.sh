@@ -14,7 +14,7 @@ package_name="proton-cachyos-slr-v3-nightly"
 cd "${packages_dir}/${package_name}"
 
 current_date=$(date -u +%F)
-if [[ -f 'updated' && grep -q "${current_date}" updated ]]; then
+if [[ -f 'updated' ]] && grep -q "${current_date}" updated; then
     echo 'Already updated today.'
     exit 0
 fi
