@@ -37,6 +37,9 @@ jobs:
           for pkgbuild in packages/*/PKGBUILD; do
             package_dir="${pkgbuild%/*}"
             artifact_name="${package_dir##*/}"
+            if [[ -f "${package_dir}/disabled" ]]; then
+              continue
+            fi
             jq -n --arg package_dir "${package_dir}" --arg artifact_name "${artifact_name}" \
               '{package_dir: $package_dir, artifact_name: $artifact_name}'
           done | jq -cs . | tr -d "\n" | sed "s/^/matrix=/" >> "${GITHUB_OUTPUT}"
