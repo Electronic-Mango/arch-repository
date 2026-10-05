@@ -18,6 +18,7 @@ if [[ -f 'updated' ]] && grep -q "${current_date}" updated; then
     echo 'Already updated today.'
     exit 0
 fi
+previous_date=$(head -n1 updated)
 echo "${current_date}" > updated
 
 auth_header=()
@@ -72,6 +73,16 @@ fi
 base_version="${BASH_REMATCH[1]}"
 build_number="${BASH_REMATCH[2]}"
 commit_hash="${BASH_REMATCH[3]}"
+
+previous_base_version=$(grep -Po '^_main_pkgver=\K.*' PKGBUILD)
+previous_build_number=$(grep -Po '^_build_number=\K.*' PKGBUILD)
+
+if [[ "${previous_base_version}" >= "${base_version}" || "${previous_base_version}" == "${base_version}" ]]; then
+    if (( previous_build_number >= build_number )); then
+        echo "No updates detected in PKGBUILD, skipping."
+        exit 0
+    fi
+fi
 
 sed -i "s/_main_pkgver=.*/_main_pkgver=${base_version}/" PKGBUILD
 sed -i "s/_build_number=.*/_build_number=${build_number}/" PKGBUILD
