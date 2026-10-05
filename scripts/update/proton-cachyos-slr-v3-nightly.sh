@@ -78,6 +78,15 @@ base_version="${BASH_REMATCH[1]}"
 build_number="${BASH_REMATCH[2]}"
 commit_hash="${BASH_REMATCH[3]}"
 
+current_base_version=$(grep -Po '^_main_pkgver=\K.*' PKGBUILD)
+current_build_number=$(grep -Po '^_build_number=\K.*' PKGBUILD)
+current_commit_hash=$(grep -Po '^_commit_hash=\K.*' PKGBUILD)
+
+if [[ "${current_base_version}" == "${base_version}" && "${current_build_number}" == "${build_number}" && "${current_commit_hash}" == "${commit_hash}" ]]; then
+    echo "No updates detected in PKGBUILD, skipping."
+    exit 0
+fi
+
 sed -i "s/_main_pkgver=.*/_main_pkgver=${base_version}/" PKGBUILD
 sed -i "s/_build_number=.*/_build_number=${build_number}/" PKGBUILD
 sed -i "s/_commit_hash=.*/_commit_hash=${commit_hash}/" PKGBUILD
