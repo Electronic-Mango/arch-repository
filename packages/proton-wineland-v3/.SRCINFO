@@ -1,6 +1,6 @@
 pkgbase = proton-wineland-v3
 	pkgdesc = Compatibility tool for Steam Play based on Wine with Wayland improvements and additional components
-	pkgver = 11.0_20260930
+	pkgver = 11.0_20261005
 	pkgrel = 1
 	epoch = 1
 	url = https://github.com/nanomatters/proton-cachyos
@@ -17,7 +17,7 @@ pkgbase = proton-wineland-v3
 	options = !strip
 	options = emptydirs
 	backup = usr/share/steam/compatibilitytools.d/proton-wineland-v3/user_settings.py
-	source_x86_64 = 11.0-20260930_1.tar.gz::https://github.com/nanomatters/proton-cachyos/releases/download/wineland-11.0-20260930/proton-wineland-11.0-20260930-x86_64_v3.tar.xz
-	sha512sums_x86_64 = 85cb18030a352fdd36f6d85c6f425a48c87620cddb14946ba1da04ff92de4aa69dadf29c43631d586563f13832c48334fe8f9ecac69bf77f815f346615847d3e
+	source_x86_64 = 11.0-20261005_1.tar.gz::https://github.com/nanomatters/proton-cachyos/releases/download/wineland-11.0-20261005/proton-wineland-11.0-20261005-x86_64_v3.tar.xz
+	sha512sums_x86_64 = 3f4eb6bc47bfe98583e83f182d6a4a3124f76e2ffc89a3100579b29880ee5f03afbb20f0534feae1f4499fddcedf847cf0099c8fa84cc185ac4a7178108924c4
 
 pkgname = proton-wineland-v3
