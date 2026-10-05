@@ -1,0 +1,22 @@
+pkgname=umbriel-extras
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Metapackage for keeping track of extra packages for Umbriel, like Xwayland, GNOME XDG Portal'
+arch=(any)
+url='https://github.com/noctalia-dev/umbriel'
+license=('MIT')
+
+depends=(
+  # Xwayland support, from "umbriel-git" AUR
+  'xcb-util-wm'
+  'xorg-xwayland'
+  # Taken from dependencies for "cachyos-niri-settings"
+  'xdg-desktop-portal-gnome'
+  'adw-gtk-theme'
+  'gnome-keyring'
+  'wl-clipboard'
+)
+
+package() {
+  :
+}
