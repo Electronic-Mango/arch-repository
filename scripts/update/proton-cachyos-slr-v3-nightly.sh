@@ -18,8 +18,6 @@ if [[ -f 'updated' ]] && grep -q "${current_date}" updated; then
     echo 'Already updated today.'
     exit 0
 fi
-previous_date=$(head -n1 updated)
-echo "${current_date}" > updated
 
 auth_header=()
 if [[ -n "${GITHUB_TOKEN:-}" ]]; then
@@ -87,3 +85,4 @@ sed -i "s/_proton_artifact_id=.*/_proton_artifact_id=${proton_id}/" PKGBUILD
 sed -i "s/_checksum_artifact_id=.*/_checksum_artifact_id=${sha_id}/" PKGBUILD
 sed -i "s/_proton_zip_checksum=.*/_proton_zip_checksum=${proton_digest}/" PKGBUILD
 sed -i "s/_checksum_zip_checksum=.*/_checksum_zip_checksum=${sha_digest}/" PKGBUILD
+echo "${current_date}" > updated
