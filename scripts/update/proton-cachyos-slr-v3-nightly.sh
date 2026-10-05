@@ -29,8 +29,8 @@ workflow_runs_api_url='https://api.github.com/repos/CachyOS/proton-cachyos/actio
 workflow_runs_api_response=$(curl -sL --max-time 10 "${auth_header[@]}" "${workflow_runs_api_url}")
 workflow_id=$(grep -Po '^      "id": \d+,$' <<< "${workflow_runs_api_response}" | grep -Po '\d+')
 if [[ -z "${workflow_id}" ]]; then
-    echo 'Failed to retrieve the latest workflow run ID.'
-    exit 1
+    echo 'Failed to retrieve the latest successful workflow run ID, skipping.'
+    exit 0
 fi
 
 workflow_artifacts_api_url="https://api.github.com/repos/CachyOS/proton-cachyos/actions/runs/${workflow_id}/artifacts"
@@ -44,8 +44,8 @@ if ! selected="$(jq -ec '
     | [$tar.id, $tar.name, ($tar.digest | ltrimstr("sha256:")), $sha.id, $sha.name, ($sha.digest | ltrimstr("sha256:"))]
     | select(all(. != null and . != ""))
 ' <<< "${workflow_artifacts_response}")"; then
-    echo "Failed to find x86_64_v3 artifacts in workflow run ${workflow_id}."
-    exit 1
+    echo "Failed to find x86_64_v3 artifacts in workflow run ${workflow_id}, skipping"
+    exit 0
 fi
 
 {
