@@ -34,6 +34,12 @@ if [[ -z "${workflow_id}" ]]; then
     exit 0
 fi
 
+current_workflow_id=$(grep -Po '^_workflow_run_id=\K.*' PKGBUILD)
+if (( current_workflow_id >= workflow_id )); then
+    echo "No new workflow run detected, skipping."
+    exit 0
+fi
+
 workflow_artifacts_api_url="https://api.github.com/repos/CachyOS/proton-cachyos/actions/runs/${workflow_id}/artifacts"
 workflow_artifacts_response=$(curl -sL --max-time 10 "${auth_header[@]}" "${workflow_artifacts_api_url}")
 
@@ -73,16 +79,6 @@ fi
 base_version="${BASH_REMATCH[1]}"
 build_number="${BASH_REMATCH[2]}"
 commit_hash="${BASH_REMATCH[3]}"
-
-previous_base_version=$(grep -Po '^_main_pkgver=\K.*' PKGBUILD)
-previous_build_number=$(grep -Po '^_build_number=\K.*' PKGBUILD)
-
-if [[ "${previous_base_version}" >= "${base_version}" || "${previous_base_version}" == "${base_version}" ]]; then
-    if (( previous_build_number >= build_number )); then
-        echo "No updates detected in PKGBUILD, skipping."
-        exit 0
-    fi
-fi
 
 sed -i "s/_main_pkgver=.*/_main_pkgver=${base_version}/" PKGBUILD
 sed -i "s/_build_number=.*/_build_number=${build_number}/" PKGBUILD

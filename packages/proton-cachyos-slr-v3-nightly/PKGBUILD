@@ -1,6 +1,7 @@
 # Maintainer: Electronic-Mango <78230210+Electronic-Mango@users.noreply.github.com>
 
 pkgname=proton-cachyos-slr-v3-nightly
+_workflow_run_id=0
 _build_number=200
 _commit_hash=gcffffad3
 _main_pkgver=11.0-20261001
