@@ -85,4 +85,5 @@ sed -i "s/_proton_artifact_id=.*/_proton_artifact_id=${proton_id}/" PKGBUILD
 sed -i "s/_checksum_artifact_id=.*/_checksum_artifact_id=${sha_id}/" PKGBUILD
 sed -i "s/_proton_zip_checksum=.*/_proton_zip_checksum=${proton_digest}/" PKGBUILD
 sed -i "s/_checksum_zip_checksum=.*/_checksum_zip_checksum=${sha_digest}/" PKGBUILD
+sed -i "s/_workflow_run_id=.*/_workflow_run_id=${workflow_id}/" PKGBUILD
 echo "${current_date}" > updated
