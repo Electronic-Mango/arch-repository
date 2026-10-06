@@ -39,11 +39,11 @@ jobs:
           shopt -s nullglob
           for script in scripts/update/*.sh; do
             package_name="$(basename "${script%.sh}")"
-            if [[ ! -d "./packages/${package_name}" ]]; then
+            if [[ ! -d "packages/${package_name}" ]]; then
               echo "Packages not found ${package_name}"
               continue
             fi
-            if [[ -f "./packages/${package_name}/disabled" ]]; then
+            if [[ -f "packages/${package_name}/disabled" ]]; then
               continue
             fi
             jq -n --arg script_path "${script}" --arg package_name "${package_name}" \
