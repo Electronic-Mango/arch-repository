@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+echo "Temporarily disabled"
+exit 0
+
 set -euo pipefail
 
 packages_dir="${1:-}"
