@@ -43,6 +43,9 @@ jobs:
               echo "Packages not found ${package_name}"
               continue
             fi
+            if [[ -f "./packages/${package_name}/disabled" ]]; then
+              continue
+            fi
             jq -n --arg script_path "${script}" --arg package_name "${package_name}" \
               '{script_path: $script_path, package_name: $package_name}'
           done | jq -cs . | tr -d "\n" | sed "s/^/matrix=/" >> "${GITHUB_OUTPUT}"
