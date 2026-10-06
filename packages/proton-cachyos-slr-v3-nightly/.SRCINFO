@@ -1,6 +1,6 @@
 pkgbase = proton-cachyos-slr-v3-nightly
 	pkgdesc = A compatibility tool for Steam Play based on Wine and additional components, experimental branch with extra CachyOS flavour (Steam Linux Runtime build)
-	pkgver = 11.0_20261001_200
+	pkgver = 11.0_20261005_1
 	pkgrel = 1
 	epoch = 1
 	url = https://github.com/CachyOS/proton-cachyos
@@ -18,12 +18,12 @@ pkgbase = proton-cachyos-slr-v3-nightly
 	options = !strip
 	options = emptydirs
 	backup = usr/share/steam/compatibilitytools.d/proton-cachyos-slr-v3-nightly/user_settings.py
-	source = proton.zip::https://nightly.link/CachyOS/proton-cachyos/actions/artifacts/11309012337.zip
-	source = checksum.zip::https://nightly.link/CachyOS/proton-cachyos/actions/artifacts/11308823054.zip
+	source = proton.zip::https://nightly.link/CachyOS/proton-cachyos/actions/artifacts/11341979399.zip
+	source = checksum.zip::https://nightly.link/CachyOS/proton-cachyos/actions/artifacts/11341589775.zip
 	source = compatibilitytool.vdf.template
 	source = ntsync.conf
-	sha256sums = 03897b636122a3d7b3da234645055349437f710a6fb2d067d5723ba67da31d0d
-	sha256sums = a72ef218744c1ff1da63ea7674e96231d3d211d56c316a9b2f1efadb1be5be70
+	sha256sums = b283262a3bd5c79de46c88aa3e144918c2d8edca9c984d428453f5e09263fe9c
+	sha256sums = ba3e6f919d49b0f8e8b46f1ad99ca2311725a11e7afa965e5707d80dfe1630fc
 	sha256sums = 6983622dc08784891929b843e8c5bf566c160eb2c23b7fc89c0f4dbabcd5db69
 	sha256sums = c19771ae86e7df179f6b2f4a2837d3f0cbbbba7b32baef41a3c27120c760d78f
 
