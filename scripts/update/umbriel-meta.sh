@@ -28,8 +28,11 @@ prev_release=$(grep -Po "pkgrel=\K.+" PKGBUILD)
 # Update versions
 new_version=$(grep -Po "pkgver=\K.+" "${official_pkgbuild}")
 new_release=$(grep -Po "pkgrel=\K.+" "${official_pkgbuild}")
+
 sed -i "s/^pkgver=.*/pkgver=${new_version}/" PKGBUILD
-sed -i "s/^pkgrel=.*/pkgrel=${new_release}/" PKGBUILD
+if (( new_version > prev_version )); then
+    sed -i "s/^pkgrel=.*/pkgrel=${new_release}/" PKGBUILD
+fi
 
 # Update dependencies
 awk '
