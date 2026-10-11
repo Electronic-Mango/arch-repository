@@ -21,11 +21,15 @@ if ! wget -O "${official_pkgbuild}" -- "${official_pkgbuild_url}"; then
     exit 0
 fi
 
+# Get previous version and release
+prev_version=$(grep -Po "pkgver=\K.+" PKGBUILD)
+prev_release=$(grep -Po "pkgrel=\K.+" PKGBUILD)
+
 # Update versions
-version=$(grep -Po "pkgver=\K.+" "${official_pkgbuild}")
-release=$(grep -Po "pkgrel=\K.+" "${official_pkgbuild}")
-sed -i "s/^pkgver=.*/pkgver=${version}/" PKGBUILD
-sed -i "s/^pkgrel=.*/pkgrel=${release}/" PKGBUILD
+new_version=$(grep -Po "pkgver=\K.+" "${official_pkgbuild}")
+new_release=$(grep -Po "pkgrel=\K.+" "${official_pkgbuild}")
+sed -i "s/^pkgver=.*/pkgver=${new_version}/" PKGBUILD
+sed -i "s/^pkgrel=.*/pkgrel=${new_release}/" PKGBUILD
 
 # Update dependencies
 awk '
@@ -52,3 +56,15 @@ skip {
 
 { print }
 ' "${official_pkgbuild}" PKGBUILD | sponge PKGBUILD
+
+if git diff --quiet -- PKGBUILD; then
+    echo "No changes detected in PKGBUILD."
+    exit 0
+fi
+
+# Bump release if new dependencies are detected butversion and release haven't changed
+if [[ "${new_version}" == "${prev_version}" && "${new_release}" == "${prev_release}" ]]; then
+    echo "No changes in version or release, bumping release."
+    new_release=$((prev_release + 1))
+    sed -i "s/^pkgrel=.*/pkgrel=${new_release}/" PKGBUILD
+fi
