@@ -3,4 +3,7 @@ optdepends=('glib2: Needed for move to trash functionality'
             'libdbusmenu-glib: Needed for KDE global menu'
             'org.freedesktop.secrets: Needed for settings sync'
              # See https://github.com/MicrosoftDocs/live-share/issues/4650
-            'icu69: Needed for live share' )
+            'icu69: Needed for live share'
+            # See https://code.visualstudio.com/docs/agents/run/agent-sandboxing#_check-platform-availability
+            'bubblewrap: Agent host sandboxing' 'socat: Agent host sandboxing'
+            )
