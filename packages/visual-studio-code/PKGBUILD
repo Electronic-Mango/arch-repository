@@ -27,6 +27,10 @@ depends=(
     shared-mime-info
     xdg-utils  # needed for opening web links with xdg-open
     alsa-lib
+
+    # Agent host sandboxing, taken from optdepends in AUR
+    # See https://code.visualstudio.com/docs/agents/run/agent-sandboxing#_check-platform-availability
+    bubblewrap
     socat
 )
 optdepends=(
