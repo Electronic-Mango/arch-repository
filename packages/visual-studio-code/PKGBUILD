@@ -13,8 +13,6 @@ conflicts=('code' 'visual-studio-code-bin')
 # See https://github.com/microsoft/vscode/issues/223455#issuecomment-2610001754
 options=(!strip)
 
-# lsof: needed for terminal splitting, see https://github.com/Microsoft/vscode/issues/62991
-# xdg-utils: needed for opening web links with xdg-open
 depends=(
     libxkbfile
     gnupg
@@ -25,9 +23,9 @@ depends=(
     libnotify
     libxss
     glibc
-    lsof
+    lsof  # needed for terminal splitting, see https://github.com/Microsoft/vscode/issues/62991
     shared-mime-info
-    xdg-utils
+    xdg-utils  # needed for opening web links with xdg-open
     alsa-lib
     socat
 )
