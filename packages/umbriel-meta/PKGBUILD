@@ -1,6 +1,6 @@
 pkgname=umbriel-meta
 pkgver=0.1.0.r0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Metapackage for keeping track of umbriel dependencies'
 arch=(any)
 url='https://github.com/noctalia-dev/umbriel'
@@ -12,9 +12,11 @@ depends=(
   'glibc'
   'jemalloc'
   'lcms2'
+  'libdisplay-info'
   'libdrm'
   'libglvnd'
   'libinput'
+  'libxcb'
   'libxkbcommon'
   'mesa'
   'pango'
@@ -22,7 +24,9 @@ depends=(
   'systemd-libs'
   'tomlplusplus'
   'wayland'
+  'xcb-util-wm'
   'xdg-desktop-portal-umbriel'
+  'xorg-xwayland'
   'wlroots0.20>=0.20.1'
 )
 
