@@ -1,12 +1,10 @@
 pkgbase = umbriel-extras
-	pkgdesc = Metapackage for keeping track of extra packages for Umbriel, like Xwayland, GNOME XDG Portal
+	pkgdesc = Metapackage for keeping track of extra packages for Umbriel, like GNOME XDG Portal, keyring
 	pkgver = 0.1.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/noctalia-dev/umbriel
 	arch = any
 	license = MIT
-	depends = xcb-util-wm
-	depends = xorg-xwayland
 	depends = xdg-desktop-portal-gnome
 	depends = adw-gtk-theme
 	depends = gnome-keyring
