@@ -44,9 +44,8 @@ find "${temp_deb_dir}" -type f -name "control" -exec cp {} . \;
 
 # Update dependencies from visual-studio-code-bin AUR package
 aur_pkgbuild_url="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=visual-studio-code-bin"
-aur_pkgbuild="$(mktemp)"
-if ! wget -O "${aur_pkgbuild}" -- "${aur_pkgbuild_url}" || ! grep -q "depends=" "${aur_pkgbuild}"; then
-    echo "Failed to download visual-studio-code-bin PKGBUILD from AUR, skipping."
+if ! aur_pkgbuild="$(wget -O - -- "${aur_pkgbuild_url}")" || ! grep -q "depends=" <<< "${aur_pkgbuild}"; then
+    echo "Failed to download visual-studio-code-bin PKGBUILD dependencies from AUR, skipping."
     exit 0
 fi
-sed -n '/depends=(/,/)[[:space:]]*$/p' "${aur_pkgbuild}" > aur-depends
+sed -n '/depends=(/,/)[[:space:]]*$/p' <<< "${aur_pkgbuild}" > aur-depends
