@@ -13,5 +13,5 @@ package_name="morewaita-icon-theme-git"
 
 cd "${packages_dir}/${package_name}"
 
-makepkg -do
-git clean -ffd
+makepkg --nobuild --nodeps --noprepare
+git clean -ffxd
