@@ -1,0 +1,36 @@
+# Maintainer: Electronic-Mango <78230210+Electronic-Mango@users.noreply.github.com>
+
+pkgname=morewaita-icon-theme-git
+_repo_name=MoreWaita
+pkgver=50.1.r4.g298968f
+pkgrel=1
+pkgdesc="An expanded Adwaita-styled companion icon theme with extra icons for popular apps to complement GNOME Shell's original icons."
+arch=(any)
+url="https://github.com/somepaulo/${_repo_name}"
+license=(GPL3)
+depends=(adwaita-icon-theme)
+makedepends=(git)
+provides=("morewaita-icon-theme" "morewaita")
+conflicts=("${pkgname%-git}" "morewaita" "morewaita-git")
+replaces=("morewaita-git")
+source=("git+${url}")
+md5sums=("SKIP")
+
+pkgver() {
+    cd "${_repo_name}"
+    git describe --long --tags --abbrev=7 | sed 's/^v//;s/-/.r/;s/-/./'
+}
+
+package() {
+    local target_dir="${pkgdir}/usr/share/icons/MoreWaita"
+    install -d "${target_dir}"
+
+    # Remove "meson.build" files in all subdirectories.
+    find "${_repo_name}" -name 'meson.build' -type f | xargs rm
+
+    cp -r "${_repo_name}/scalable" "${target_dir}/scalable"
+    cp -r "${_repo_name}/symbolic" "${target_dir}/symbolic"
+    cp -r "${_repo_name}/16x16" "${target_dir}/16x16"
+    cp "${_repo_name}/index.theme" "${target_dir}/index.theme"
+    cp "${_repo_name}/LICENSE" "${target_dir}/LICENSE"
+}
