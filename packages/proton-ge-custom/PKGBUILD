@@ -1,9 +1,9 @@
 # Maintainer: Electronic-Mango <78230210+Electronic-Mango@users.noreply.github.com>
 
 pkgname=proton-ge-custom
-_pkgver=GE-Proton11-8
+_pkgver=GE-Proton11-9
 pkgver=${_pkgver//-/_}
-pkgrel=2
+pkgrel=1
 epoch=1
 
 pkgdesc="Compatibility tool for Steam Play based on Wine and additional components"
@@ -20,7 +20,7 @@ backup=("usr/share/steam/compatibilitytools.d/${pkgname}/user_settings.py")
 source=("ntsync.conf")
 source_x86_64=(${_pkgver}_${pkgrel}.tar.gz::${url}/releases/download/${_pkgver}/${_pkgver}-x86_64.tar.gz)
 sha512sums=('ac2bd634838ffe6b90f2637e229013f0993fc1013271dbeefd216dc262a8bb79e4a5ce15a75cbfcb0c3b521d32f4ebe1ed25a6b066b99cc327b60bd6d7212e6f')
-sha512sums_x86_64=('7757dc3c84f876d6cd18a060a97cfa50f8c5501c93ecb4bd909f3ad6dd9fa899f402fdb41361fd0a7e705427bed78abff0033b5e17aed9a3adaa8e74c579bd0c')
+sha512sums_x86_64=('30160946a5e4ffdf1f29d6f83a3d27108f6aa71b6aa59095b2c2260fe3a003b62acf8fdcb02a3dfc602b28473f5679d8a3eaee5a8adb141c1dfa01c42888da2d')
 
 _unpacked="${_pkgver}-x86_64"
 
