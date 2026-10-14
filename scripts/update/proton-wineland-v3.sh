@@ -24,15 +24,24 @@ if [[ "$(echo "${api_response}" | jq -r '.message // empty')" != "" ]]; then
     exit 1
 fi
 version=$(echo "${api_response}" | jq -r '.tag_name' | sed 's/wineland-//')
-
-if grep -q "_pkgver=${version}" PKGBUILD; then
-    echo "PKGBUILD is already up to date with version ${version}."
-    exit 0
-fi
-
 sha_url=$(echo "${api_response}" | jq -r --arg name "proton-wineland-${version}-x86_64_v3.sha512sum" '.assets[] | select(.name == $name) | .browser_download_url')
 sha512hash=$(curl -sL --max-time 10 "${auth_header[@]}" "${sha_url}" | awk '{print $1}')
 
+old_pkgver=$(grep -Po "_pkgver=\K.+" PKGBUILD)
+old_pkgrel=$(grep -Po "pkgrel=\K.+" PKGBUILD)
+
 sed -i "s/_pkgver=.*/_pkgver=${version}/" PKGBUILD
 sed -i "s/^sha512sums_x86_64=.*/sha512sums_x86_64=('${sha512hash}')/" PKGBUILD
-sed -i "s/pkgrel=.*/pkgrel=1/" PKGBUILD
+
+if git diff --quiet PKGBUILD; then
+    echo "No changes detected, skipping."
+    exit 0
+fi
+
+if [[ "${old_pkgver}" == "${version}" ]]; then
+    new_pkgrel=$((old_pkgrel + 1))
+else
+    new_pkgrel=1
+fi
+
+sed -i "s/pkgrel=.*/pkgrel=${new_pkgrel}/" PKGBUILD
