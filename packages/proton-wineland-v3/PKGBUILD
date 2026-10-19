@@ -21,7 +21,7 @@ sha512sums_x86_64=('f3934318c48eb40adfb02d8472ec1a466d108c8e02be7d88406bf5bfce93
 _unpacked="proton-wineland-${_pkgver}-x86_64_v3"
 
 build() {
-    # find -type f -name "*.reg" -exec sed -i 's/"LogPixels"=dword:00000060/"LogPixels"=dword:000000c0/' -- {} \;
+    find -type f -name "*.reg" -exec sed -i 's/"LogPixels"=dword:00000060/"LogPixels"=dword:000000c0/' -- {} \;
     sed -i 's/"display_name" "proton-wineland-\(.*\)-x86_64_v3"/"display_name" "Proton Wineland \1"/' "${_unpacked}"/compatibilitytool.vdf
 }
 
