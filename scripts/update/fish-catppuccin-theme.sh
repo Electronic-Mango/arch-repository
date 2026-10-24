@@ -13,3 +13,4 @@ package_name="fish-catppuccin-theme"
 
 cd "${packages_dir}/${package_name}"
 makepkg --nobuild --nodeps --noprepare
+git clean -ffxd
