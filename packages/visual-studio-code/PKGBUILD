@@ -2,7 +2,7 @@
 
 pkgname=visual-studio-code
 pkgver=1.143.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Visual Studio Code (vscode): Editor for building and debugging modern web and cloud applications (official tarball version)'
 arch=('x86_64')
 url='https://code.visualstudio.com/'
@@ -29,9 +29,10 @@ depends=(
     alsa-lib
 
     # Agent host sandboxing, taken from optdepends in AUR
-    # See https://code.visualstudio.com/docs/agents/run/agent-sandboxing#_check-platform-availability
+    # https://code.visualstudio.com/docs/agents/run/agent-sandboxing#_check-platform-availability
+    # https://code.visualstudio.com/docs/agents/run/agent-sandboxing#_install-missing-sandbox-dependencies
     bubblewrap
-    socat
+    slirp4netns
 )
 optdepends=(
     'glib2: Needed for move to trash functionality'
@@ -39,7 +40,6 @@ optdepends=(
     'org.freedesktop.secrets: Needed for settings sync'
     # See https://github.com/MicrosoftDocs/live-share/issues/4650
     'icu69: Needed for live share'
-    'slirp4netns: Needed for network access with agent sandboxing enabled'
 )
 
 source=("code.desktop")
