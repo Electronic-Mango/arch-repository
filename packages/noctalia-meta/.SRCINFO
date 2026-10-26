@@ -1,6 +1,6 @@
 pkgbase = noctalia-meta
 	pkgdesc = Metapackage for keeping track of noctalia dependencies
-	pkgver = 5.3.0
+	pkgver = 5.4.0
 	pkgrel = 1
 	url = https://github.com/noctalia-dev/noctalia
 	arch = any
