@@ -1,5 +1,5 @@
 pkgname=noctalia-meta
-pkgver=5.4.0
+pkgver=5.4.1
 pkgrel=1
 pkgdesc='Metapackage for keeping track of noctalia dependencies'
 arch=(any)
