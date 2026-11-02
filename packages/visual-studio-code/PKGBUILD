@@ -1,7 +1,7 @@
 # Maintainer: Electronic-Mango <78230210+Electronic-Mango@users.noreply.github.com>
 
 pkgname=visual-studio-code
-pkgver=1.144.0
+pkgver=1.144.1
 pkgrel=1
 pkgdesc='Visual Studio Code (vscode): Editor for building and debugging modern web and cloud applications (official tarball version)'
 arch=('x86_64')
@@ -45,7 +45,7 @@ optdepends=(
 source=("code.desktop")
 source_x86_64=("${pkgname}-${pkgver}.tar.gz::https://update.code.visualstudio.com/${pkgver}/linux-x64/stable")
 sha256sums=('8ff7386e99e55dcaff69c93baa655d9d75d54a68d116aece3b0d6b22457233e5')
-sha256sums_x86_64=('17b72a7e6f40a5b5dce9850f10eea13ce734a63052b67fa021cc01e715ad4cf1')
+sha256sums_x86_64=('59d8d6f9dc2431353c453cf6a4da0faae3993e332007ab387f526332eef93fe4')
 _vscode_dir="VSCode-linux-x64"
 
 package() {
