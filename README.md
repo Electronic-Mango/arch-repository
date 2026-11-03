@@ -88,3 +88,15 @@ No ntsync module installed with this one.
 ### `morewaita-icon-theme-git`
 
 [MoreWaita icon theme](https://github.com/somepaulo/MoreWaita). Latest git version, rather than official release.
+
+
+### `fish-catppuccin-theme`
+
+[Catppuccin theme for fish shell](https://github.com/catppuccin/fish), installed as a `pacman` package.
+Similar to already available
+[`fisher`](https://dashboard.cachyos.org/package/extra/any/fisher),
+[`pure-prompt`](https://dashboard.cachyos.org/package/cachyos/any/fish-pure-prompt),
+[`autopair`](https://dashboard.cachyos.org/package/cachyos/any/fish-autopair),
+etc.
+
+Git version, as there are no official releases.
