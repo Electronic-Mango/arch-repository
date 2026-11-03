@@ -83,3 +83,8 @@ The only change from the release is display name changed to `Proton Wineland <ve
 DPI is currently not changed, Proton Wineland has its own system of scaling the cursor.
 
 No ntsync module installed with this one.
+
+
+### `morewaita-icon-theme-git`
+
+[MoreWaita icon theme](https://github.com/somepaulo/MoreWaita). Latest git version, rather than official release.
