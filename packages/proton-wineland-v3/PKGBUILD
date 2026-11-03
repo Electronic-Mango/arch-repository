@@ -1,7 +1,7 @@
 # Maintainer: Electronic-Mango <78230210+Electronic-Mango@users.noreply.github.com>
 
 pkgname=proton-wineland-v3
-_pkgver=11.0-20261103
+_pkgver=11.0-20261024
 pkgver=${_pkgver//-/_}
 pkgrel=1
 epoch=1
@@ -16,7 +16,7 @@ provides=('proton-wineland-v3' 'proton')
 backup=("usr/share/steam/compatibilitytools.d/${pkgname}/user_settings.py")
 
 source_x86_64=(${_pkgver}_${pkgrel}.tar.gz::${url}/releases/download/wineland-${_pkgver}/proton-wineland-${_pkgver}-x86_64_v3.tar.xz)
-sha512sums_x86_64=('6f82f324c7af75d114c6284656cc9a1886bc6ba7d56fadec1fddf698f73c0fc5ac072e3a1fed54a7cd63547b8faeb2a1d32d4def225e4aec3d560db0c0025c08')
+sha512sums_x86_64=('3430e81383a1d33ed71ec6ec8b86a841c440e16f0debc8c866a98da92fe739e5248edab141ed0f38aa858f05da1f4ea9d98c06eaa0c01471dc27aa3701eab53e')
 
 _unpacked="proton-wineland-${_pkgver}-x86_64_v3"
 
