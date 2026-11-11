@@ -1,7 +1,7 @@
 pkgbase = visual-studio-code
 	pkgdesc = Visual Studio Code (vscode): Editor for building and debugging modern web and cloud applications (official tarball version)
-	pkgver = 1.145.3
-	pkgrel = 2
+	pkgver = 1.146.0
+	pkgrel = 1
 	url = https://code.visualstudio.com/
 	arch = x86_64
 	license = custom: commercial
@@ -32,7 +32,7 @@ pkgbase = visual-studio-code
 	options = !strip
 	source = code.desktop
 	sha256sums = 8ff7386e99e55dcaff69c93baa655d9d75d54a68d116aece3b0d6b22457233e5
-	source_x86_64 = visual-studio-code-1.145.3.tar.gz::https://update.code.visualstudio.com/1.145.3/linux-x64/stable
-	sha256sums_x86_64 = 567e067c3ce043605af1b466e916173193100cf8c7da911b85e4c5c0869fe621
+	source_x86_64 = visual-studio-code-1.146.0.tar.gz::https://update.code.visualstudio.com/1.146.0/linux-x64/stable
+	sha256sums_x86_64 = cbdb7bde3d358c7297cf1d9d6adc16dfb1d0179501fb2c152df48593e39e3600
 
 pkgname = visual-studio-code
