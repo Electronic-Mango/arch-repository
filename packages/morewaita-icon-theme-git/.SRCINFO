@@ -1,6 +1,6 @@
 pkgbase = morewaita-icon-theme-git
 	pkgdesc = An expanded Adwaita-styled companion icon theme with extra icons for popular apps to complement GNOME Shell's original icons.
-	pkgver = 50.1.r10.gaf6b396
+	pkgver = 50.1.r11.gfb37f62
 	pkgrel = 1
 	url = https://github.com/somepaulo/MoreWaita
 	arch = any
